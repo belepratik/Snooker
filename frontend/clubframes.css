@@ -1,0 +1,319 @@
+body {
+    background-color: #22252B;
+    color: #FFFFFF;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #33363B;
+    padding: 20px;
+    text-align: center;
+}
+
+header img {
+    width: 180px;
+}
+#heading{
+    font-size: 30px;
+
+    text-transform: capitalize;
+}
+h1 {
+    color: #01AB7A;
+    margin: 10px 0 0;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: left;
+}
+
+.card, .frame-card {
+    background-color: #33363B;
+    border-radius: 8px;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+    margin: 20px;
+    padding: 20px;
+}
+
+.frame-card {
+    margin-bottom: 10px;
+}
+
+h5 {
+    color: #01AB7A;
+}
+
+input, button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+input {
+    width: 100%;
+}
+
+button {
+    background-color: #01AB7A;
+    color: #fff;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #018a5e;
+}
+
+@media (min-width: 768px) {
+    h1 {
+        font-size: 24px;
+    }
+
+    #filters {
+        flex-direction: row;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap
+    }
+
+    input, button {
+        margin-bottom: 0;
+        flex-grow: 1;
+    }
+}
+
+.active-frame {
+    border: 2px solid #01AB7A; /* Highlight active frames with a border color similar to the header */
+    background-color: #394045; /* Slightly lighter than the default frame card for distinction */
+}
+
+/* Assuming .frame-card is your card container */
+.frame-card {
+    position: relative;
+    padding: 15px; /* Adjust padding as needed */
+    /* Other styling for your card */
+}
+
+.action-buttons {
+  display: flex;
+  /* flex-direction: column; */
+  gap: 10px;              /* Space between buttons */
+  margin-top: 15px;
+}
+@media (max-width: 768px) {
+  .action-buttons {
+    flex-direction: column;
+  }
+}
+.action-buttons button {
+  padding: 9px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.edit-btn:hover {
+  background-color: #019875; /* Slightly darker teal on hover */
+}
+.resume-btn {
+  background-color: #2196F3; /* Blue */
+  color: white;
+}
+.resume-btn:hover {
+  background-color: #1976D2; /* Darker blue on hover */
+}
+.pause-btn:hover {
+  background-color: #e0a800; /* Darker amber */
+}
+.off-btn:hover {
+  background-color: #c62828; /* Darker red */
+}
+/* 
+.edit-btn,.pause-btn, .off-btn {
+    width: 100%;
+    margin-bottom: 5px; 
+} */
+
+.pause-btn {
+    background-color: #FFC107; /* Bootstrap's btn-primary color */
+    color: black;
+}
+
+/* Additional styling for the off button if needed */
+.off-btn {
+    background-color: #dc3545; /* Bootstrap's btn-danger color */
+    color: white;
+}
+
+
+#addPlayersButton {
+    background-color: #01AB7A;
+    color: #FFFFFF;
+    padding: 5px 15px; /* Adjust padding as needed */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s ease;
+}
+
+#addPlayersButton:hover {
+    background-color: #018a5e; /* Darker shade for hover effect */
+}
+
+#activeFramesContainer {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    justify-content: flex-end; /* Align items to the right */
+    margin-bottom: 10px; /* Add margin to create space */
+    margin-right: 20px; /* Add margin to create space between the text and checkbox */
+}
+
+/* Style for the custom checkbox */
+#activeFramesFilter {
+    display: inline-block; /* Ensure checkbox is visible */
+    opacity: 1; /* Show the checkbox */
+    margin-left: 5px; /* Add margin to create space */
+}
+
+/* Style for the custom checkbox label */
+#activeFramesContainer label {
+    color: #FFFFFF; /* Text color for the label */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+/* Style for the custom checkbox when checked */
+#activeFramesFilter:checked + label::before {
+    background-color: #00FF00; /* Background color for the checked state */
+}
+
+#activeFramesFilter + label::before {
+    content: "";
+    display: inline-block;
+    width: 15px; /* Adjust width and height as needed for the checkbox */
+    height: 15px;
+    border: 2px solid #018a5e; /* Border color for the checkbox */
+    border-radius: 3px; /* Border radius for the checkbox */
+    background-color: transparent; /* Background color for the checkbox */
+    vertical-align: middle; /* Align the checkbox vertically with the text */
+    margin-right: 5px; /* Add margin to create space */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+#activeFramesContainer label {
+    color: #FFFFFF; /* Text color for the label */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    margin-right: 5px; /* Add margin to create space between the text and checkbox */
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.overlay-content {
+  position: fixed; /* Change from absolute to fixed */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #FFFFFF;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 400px; /* Limit maximum width for better readability */
+}
+
+#offForm label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Align items to the left and right */
+  margin-bottom: 15px;
+  color: #333333; /* Dark text color for labels */
+}
+
+#offForm input[type="text"],
+#offForm input[type="number"] {
+  width: calc(100% - 30px); /* Adjust width and padding */
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #CCCCCC; /* Light border color */
+  border-radius: 5px;
+  box-sizing: border-box; /* Include padding and border in width calculation */
+}
+
+.plus-button {
+    display: inline-block;
+    width: 24px; /* Adjust width as needed */
+    height: 24px; /* Adjust height as needed */
+    background-color: #28A745; /* Green background color */
+    color: #FFFFFF; /* White text color */
+    border: none;
+    border-radius: 50%; /* Make it circular */
+    cursor: pointer;
+    font-size: 16px; /* Adjust font size as needed */
+    line-height: 24px; /* Adjust line height to center the text vertically */
+    text-align: center;
+    flex-shrink: 0; /* Prevent the button from shrinking */
+}
+
+
+#offForm input[type="submit"],
+#offForm button {
+  display: inline-block;
+  width: 100%; /* Full width buttons */
+  padding: 12px;
+  margin-top: 10px;
+  color: #FFFFFF;
+  background-color: #DC3545; /* Red button color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#offForm button[type="button"] {
+  background-color: transparent;
+  border: 1px solid #DC3545; /* Red border color for cancel button */
+  color: #DC3545; /* Red text color for cancel button */
+}
+
+/* Hover effect for buttons */
+#offForm input[type="submit"]:hover,
+#offForm button:hover {
+  background-color: #b30015; /* Darker shade of red for hover effect */
+}
+
+/* Adjustments for mobile screens */
+@media (max-width: 768px) {
+  .overlay-content {
+    padding: 20px;
+  }
+
+  #offForm input[type="text"],
+  #offForm input[type="number"] {
+    width: 100%; /* Full width inputs on mobile */
+  }
+}
+
+.load {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#loadButton {
+    width: 5px;
+    background-color: #01AB7A;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    /* padding: 6px 9px; */
+    border: 2px solid white;
+    border-radius: 5px;
+}

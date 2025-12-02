@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snooker Frames Analytics Dashboard</title>
+    <link rel="stylesheet" href="dash.css">
+
+</head>
+
+<body>
+    <header>
+        <img id="logo" src="https://github.com/AnkitBele21/centurydewas/blob/main/photo/Dashboard.png?raw=true"
+            alt="Snooker">
+        <h1 id="clubName"></h1>
+
+        <nav>
+            <a href="/frame"><button class="navButton">Frames</button></a>
+            <button class="navButton" id="addOperatorBtn">Add Operator</button>
+            <a href="/club"><button class="navButton">LogOut</button></a>
+        </nav>
+    </header>
+
+    <div id="addOperatorModal" class="modal">
+        <div class="modal-dialog" id="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Operator</h4>
+                    <button type="button" id="close" class="close" aria-label="Close" data-dismiss="modal">
+                        <span aria-hidden="true" id="close_button">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addOperatorForm">
+                        <div class="form-group">
+                            <label for="operatorName">Name:</label>
+                            <input type="text" class="form-control" id="operatorName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="operatorMobile">Mobile:</label>
+                            <input type="text" class="form-control" id="operatorMobile" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="operatorPassword">Password:</label>
+                            <input type="text" class="form-control" id="operatorPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="submitButton">Add </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="studioDets">
+        <h1 class="headings">Studio Details</h1>
+        <div class="filter">
+            <h3>Select Date</h3>
+            <input type="date" id="datePicker" class="dateInput" />
+            <label for="month">Select Month</label>
+            <select name="month" id="mainMonth" class="monthInput">
+
+            </select>
+        </div>
+
+        <div id="selectedDateBox"></div> <!-- Display details for selected date -->
+
+        <h2>Total Table Money</h2>
+        <div id="totalMoneyBox"></div> <!-- Display total table money -->
+
+        <h2>Graphical Representation</h2>
+        <canvas id="analyticsChart" width="400" height="200"></canvas> <!-- Chart.js canvas -->
+
+        <canvas id="tableWisePerformanceChart" width="400" height="200"></canvas>
+
+    </div>
+
+    <!-- occupancy -->
+
+    <div id="occupancy">
+        <header>
+            <h1 class="headings">Snooker Table Occupancy </h1>
+        </header>
+
+        <div class="container">
+            <div style="text-align: left;">
+                <label for="dateSelectorOccup">Select Date:</label>
+                <input type="date" id="dateSelectorOccup" class="dateInput">
+            </div>
+            <div id="tableOccupancyChart" class="chart-container"></div>
+        </div>
+    </div>
+
+    <!-- topUp -->
+
+    <div class="topupSection">
+        <div class="container my-4" id="topup"></div>
+        <!-- Heading -->
+        <h1 class="headings">Topup Data</h1>
+
+        <!-- Modern Summary Box -->
+        <div class="summary-box">
+            <p>Total Topup: <span id="totalTopup">0.00</span></p>
+            <p>Online Total: <span id="onlineTotal">0.00</span></p>
+            <p>Cash Total: <span id="cashTotal">0.00</span></p>
+        </div>
+
+        <!-- Date Selector -->
+        <div class="filter">
+            <label for="dateSelectorTop" class="input-group-text">Select Date</label>
+            <input type="date" id="dateSelectorTop" class="form-control dateInput">
+
+            <label for="month">Select Month</label>
+            <select name="month" id="month" class="monthInput"> </select>
+        </div>
+        <!-- <div class="row justify-content-center mb-4">
+            <div class="col-12 col-sm-6 col-md-4">
+            </div>
+        </div> -->
+
+
+
+
+        <!-- Topup Table -->
+        <div class="table-responsive">
+            <table id="topupTable" class="table table-bordered table-hover text-center">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Total Topup</th>
+                        <th>Online</th>
+                        <th>Cash</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Table rows will be dynamically inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        
+    </div>
+    <!-- operator Records  -->
+
+    <div id="recordsOperator">
+        <h1 class="headings">Records</h1>
+        <table id="recordsTable" class="table table-bordered table-hover text-center ">
+            <thead>
+                <td>Operator</td>
+                <td>Operation</td>
+                <td>TimeStamp</td>
+            </thead>
+            <tbody id="recordsTableBody">
+                <!-- Table rows will be dynamically inserted here by JavaScript -->
+        </table>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Include Chart.js -->
+    <script src="dashMain.js" defer></script>
+    <script src="dashTopup.js" defer></script>
+    <script src="dashOccupancy.js" defer></script>
+    <script src="dashCommon.js"></script>
+    <script src="dashTableStatus.js"></script>
+
+
+
+
+</body>
+
+</html>

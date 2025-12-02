@@ -1,0 +1,191 @@
+/* Reset and general layout */
+body {
+    background-color: #22252B;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    color: white;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    max-width: 400px;
+    padding: 20px;
+  }
+  
+  .brand {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .tagline {
+    font-size: 14px;
+    color: #b1b1b1;
+    margin-top: -10px;
+    font-style: italic;
+    letter-spacing: 0.3px;
+  }
+  
+  .logo {
+    width: 180px;
+    margin-bottom: 30px;
+  }
+  
+  .card {
+    background-color: #2C2F36;
+    padding: 30px 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  h2 {
+    color: #239E7A;
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  
+  /* Form styles */
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  input[type="text"],
+  input[type="password"],
+  select {
+    background-color: #3A3F48;
+    color: white;
+    padding: 10px;
+    border: 1px solid #444950;
+    border-radius: 6px;
+    font-size: 15px;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  input::placeholder {
+    color: #b1b1b1;
+  }
+  
+  .select-wrapper {
+    position: relative;
+  }
+  
+  .select-wrapper::after {
+    content: '▼';
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #b1b1b1;
+    font-size: 14px;
+  }
+  
+  select {
+    appearance: none;
+  }
+  
+  /* Button */
+  button {
+    background-color: #239E7A;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: white;
+    color: #239E7A;
+  }
+  
+  button:active {
+    background-color: #1b7b60;
+  }
+  
+  /* Signup link */
+  .signup-link {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .signup-link a {
+    color: #239E7A;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  
+  .signup-link a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 500px) {
+    .card {
+      padding: 25px 20px;
+    }
+  
+    h2 {
+      font-size: 24px;
+    }
+  }
+  .forgot-pin {
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  .forgot-pin a {
+    color: #239E7A;
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  .signup-link .cta {
+    font-size: 15px;
+    text-align: center;
+    margin-top: 20px;
+    color: #ffffff;
+  }
+  
+  .signup-link .cta strong {
+    color: #239E7A;
+  }
+  
+  .signup-link .cta a {
+    color: #ffffff;
+    background-color: #239E7A;
+    padding: 6px 12px;
+    border-radius: 5px;
+    margin-left: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .signup-link .cta a:hover {
+    background-color: white;
+    color: #239E7A;
+    text-decoration: underline;
+  }
+  

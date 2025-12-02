@@ -1,0 +1,336 @@
+/* Global and Body Styles */
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #22252b;
+  color: #ffffff;
+  font-family: "Roboto", sans-serif;
+}
+
+/* Header and Its Elements */
+.header {
+  background-color: #33363b;
+  padding: 20px;
+  text-align: center;
+}
+
+.logoImg {
+  width: 180px;
+}
+
+#heading {
+  text-transform: capitalize;
+}
+
+.header h1 {
+  color: #01ab7a;
+  margin-top: 10px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* Container and Search Input */
+.container {
+  margin-top: 20px;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+#playerSearch {
+  padding: 5px 7px;
+  border-radius: 7px;
+  font-size: 15px;
+}
+
+.bill {
+  display: none;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  z-index: 99;
+  left: 50%;
+  top: 60%;
+  border-radius: 50%;
+  padding: 0;
+}
+
+/* Table and Its Elements */
+table {
+  margin: auto;
+  color: #ffffff;
+  padding: 0px 10px;
+  /* width: full; */
+  border-bottom: 2px solid white;
+  margin-bottom: 10px;
+  table-layout: fixed;
+  border-collapse: collapse; /* Ensures borders are merged cleanly */
+}
+
+#playersTable thead {
+  padding-top: 20px;
+  position: sticky;
+  top: 0;
+  background: #018761;
+}
+table tr td:nth-child(1),
+table tr th:nth-child(1) {
+  display: none;
+}
+
+th,
+td {
+  /* border: 1px solid #ddd; */
+  padding: 8px;
+  text-align: center;
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  /* background: red; */
+  /* width: 25vw; */
+}
+
+tr {
+  border: 2px solid white;
+}
+
+tr:last-child {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background: #33363b;
+  height: 8vh;
+}
+
+.topupBtn,
+.purchaseBtn {
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+}
+.topupBtn {
+  background: #01ab7a;
+}
+
+.actionBtns {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-right: 10px;
+}
+
+.icons {
+  display: flex;
+}
+
+/* Buttons and Form Controls */
+.btn-primary {
+  background-color: #01ab7a;
+  border-color: #01ab7a;
+  margin: 5px;
+}
+
+.btn-primary:hover,
+.btn-success:hover {
+  opacity: 0.85;
+}
+
+.btn-success {
+  background-color: #4caf50;
+  border-color: #4caf50;
+}
+
+.form-control,
+.btn {
+  margin: 5px 0;
+}
+
+.ml-2 {
+  margin-left: 8px;
+}
+
+/* Icons */
+.editIcon,
+.checkIcon {
+  width: 30px;
+  height: 30px;
+  /* margin-left: 35px; */
+  cursor: pointer;
+}
+.checkIcon {
+  display: none;
+}
+.menuIcon {
+  width: 25px;
+  height: 25px;
+  /* margin-left: 20px; */
+  cursor: pointer;
+}
+
+
+.menu {
+  display: none;
+  position: absolute;
+  background: #33363b;
+  /* display: inline-flex; */
+  left: 50%;
+  top: 50%;
+  border-radius: 10px;
+  /* border: 2px solid white; */
+}
+
+.menu ul {
+  padding: 0;
+}
+
+.menu ul li {
+  text-align: center;
+  padding: 10px 20px;
+  list-style: none;
+  cursor: pointer;
+  border-bottom: 1px solid white;
+}
+
+.menu ul li:hover {
+  background: #24262a;
+}
+.menu ul li a {
+  font-size: 16px;
+  /* font-weight: bold; */
+  text-align: center;
+  text-decoration: none;
+  color: white;
+}
+
+
+/* Input Fields */
+.readOnlyInput {
+  width: 24.5vw;
+  margin: auto;
+  outline: none;
+  background: transparent;
+  color: white;
+  border: none;
+  text-align: center;
+  font-size: 16px;
+}
+
+textarea {
+  resize: none;
+  overflow-wrap: break-word;
+}
+.writeInput {
+  width: 24.5vw;
+  margin: auto;
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 16px;
+}
+
+/* Modal Elements */
+.modal {
+  display: none; /* Hide the modal by default */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-dialog {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%; /* Adjust the width as needed */
+  max-width: 400px;
+  background-color: #fefefe;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.modal-title {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.modal-body {
+  color: #555;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Row Balance Styles */
+.high-balance {
+  background-color: #4caf50;
+  color: #ffffff;
+}
+
+.medium-balance {
+  background-color: #ffeb3b;
+  color: #000000;
+}
+
+.low-balance {
+  background-color: #ffc107;
+  color: #000000;
+}
+
+.negative-balance {
+  background-color: #f44336;
+  color: #ffffff;
+}
+
+/* Flex Utilities */
+.d-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Additional Styles for Buttons in Modal */
+.item-btn {
+  margin: 3px 2px;
+  padding: 3px 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.item-btn:hover {
+  font-weight: bold;
+}
+#balanceHeader {
+  cursor: pointer;
+  user-select: none;
+}
+
+#balanceArrow {
+  margin-left: 5px;
+  font-size: 0.8em;
+}

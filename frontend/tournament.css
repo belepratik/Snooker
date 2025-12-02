@@ -1,0 +1,102 @@
+body {
+    background-color: #22252B;
+    color: #FFFFFF;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #33363B;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.round-selector {
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+    background-color: #33363B;
+    color: white;
+    padding: 10px 0;
+    cursor: pointer;
+    text-align: center;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    color: black;
+    width: 100%;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    color: black;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.container {
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    flex-direction: column; /* Ensure cards are displayed one below the other */
+}
+
+.card {
+    background-color: #33363B;
+    border-radius: 10px;
+    color: #FFFFFF;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border-left: 5px solid; /* Accent color stripe */
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.card-link {
+    color: #FFEB3B;
+    font-weight: bold;
+}
+
+.card-link:hover {
+    color: #ffd700;
+}
+
+/* Example CSS for card accent colors */
+.card.round-groupstage { border-left-color: #28a745; }
+.card.round-knockout { border-left-color: #964b00; }
+.card.round-quarterfinals { border-left-color: #0000ff; }
+.card.round-semifinals { border-left-color: #ff69b4; }
+.card.round-finals { border-left-color: #000000; }

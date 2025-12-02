@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Snooker+ Services</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="https://github.com/AnkitBele21/centurydewas/blob/updateframedata/photo/Thumbnail.jpg?raw=true" type="image/x-icon">
+  <style>
+    :root {
+      --primary: #01AB7A;
+      --background: #1a1d22;
+      --surface: #2c2f36;
+      --text-primary: #ffffff;
+      --text-secondary: #cccccc;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--background);
+      color: var(--text-primary);
+    }
+
+    header {
+      background-color: var(--surface);
+      padding: 1rem 2rem;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    section {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    h2 {
+      font-size: 1.75rem;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      background-color: var(--surface);
+      border-radius: 12px;
+      padding: 1.5rem 1.2rem;
+      text-align: left;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .service-card h3 {
+      margin-top: 0;
+      font-size: 1.25rem;
+      color: var(--primary);
+    }
+
+    .service-card p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    @media (max-width: 480px) {
+      header {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>Snooker+ Services</header>
+
+  <section>
+    <h2>What We Offer</h2>
+    <div class="service-grid">
+
+      <div class="service-card">
+        <h3>🎱 Club Management System</h3>
+        <p>Digitize your snooker club with our all-in-one platform — manage tables, players, billing, and time tracking effortlessly.</p>
+      </div>
+
+      <div class="service-card">
+        <h3>📊 Real-Time Analytics</h3>
+        <p>Know exactly how your club is performing — live player stats, revenue breakdowns, table usage, and more.</p>
+      </div>
+
+      <div class="service-card">
+        <h3>🛰 Remote Club Control</h3>
+        <p>Operate your club from anywhere. Turn tables on/off, track sessions, manage logins — fully secure and cloud-enabled.</p>
+      </div>
+
+      <div class="service-card">
+        <h3>🏆 Tournament Hosting</h3>
+        <p>Run tournaments like a pro with our tournament engine — brackets, match scoring overlays, and YouTube streaming built-in.</p>
+      </div>
+
+      <div class="service-card">
+        <h3>🌐 Player & Club Community</h3>
+        <p>Get your club listed. Grow your reach. Enable players to find clubs, join events, and appear on national leaderboards.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Snooker+ Services • Empowering the Cue Sport Community
+  </footer>
+
+</body>
+</html>

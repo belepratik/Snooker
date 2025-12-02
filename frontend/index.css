@@ -1,0 +1,357 @@
+/* General container styling */
+body {
+    background-color: #22252B;
+    color: #FFFFFF;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #33363B;
+    padding: 0;
+}
+
+header img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+}
+
+main {
+    padding: 20px;
+}
+
+/* Toolbar */
+.toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 12px 8px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #22252B;
+    border-bottom: 1px solid #444;
+}
+
+/* Filters section */
+.filters {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    width: 100%;
+}
+
+.filters .form-check,
+.filters .form-select {
+    flex: 1 1 auto;
+    min-width: 120px;
+    max-width: 100%;
+}
+
+/* Mobile-specific tweaks */
+@media (max-width: 500px) {
+    .filters {
+        justify-content: space-between;
+    }
+
+    .filters .form-check,
+    .filters .form-select {
+        flex: 1 1 48%;
+    }
+}
+
+#studioName {
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #33363B;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    width: auto;
+    max-width: 200px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+
+#studioName.clicked {
+    background-color: #01AB7A;
+}
+
+/* Buttons */
+.button-container {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    background-color: #33363B;
+    color: #fff;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background-color: #01AB7A;
+    transform: scale(1.05);
+}
+
+button.btn-primary {
+    background-color: #01AB7A;
+    color: white;
+}
+
+button.btn-outline-primary {
+    background-color: transparent;
+    border: 1px solid #01AB7A;
+    color: #01AB7A;
+}
+
+/* Snooker+ Champions Button */
+.snooker-champions {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+button#championsButton {
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    background-color: #33363B;
+    color: #fff;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+button#championsButton:hover {
+    background-color: #01AB7A;
+    transform: scale(1.05);
+}
+
+button#championsButton[data-active="true"] {
+    background-color: #01AB7A;
+    color: white;
+}
+
+button#championsButton[data-active="false"] {
+    background-color: transparent;
+    border: 1px solid #01AB7A;
+    color: #01AB7A;
+}
+
+/* Search bar */
+.search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.search-icon {
+    display: none;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+#searchInput {
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    flex: 1;
+    width: 80%;
+}
+
+.search input {
+    font-size: 14px;
+    width: 300px;
+}
+
+/* Player Cards */
+.player-card {
+    background-color: #33363B;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 8px;
+    transition: transform 0.2s, box-shadow 0.3s;
+    position: relative;
+}
+
+.player-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.player-name {
+    font-weight: 600;
+    line-height: 1.2em;
+    display: block;
+}
+
+.play-button {
+    margin-left: auto;
+    margin-right: 10px;
+    align-self: center;
+    padding-left: 10px;
+    cursor: pointer;
+}
+
+.play-button:hover {
+    transform: scale(1.5);
+}
+
+.player-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.progress-bar {
+    height: 12px;
+    background-color: #444;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 5px;
+    position: relative;
+}
+
+.progress-bar-inner {
+    height: 100%;
+    background-color: #01AB7A;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 6px;
+    transition: width 0.3s ease;
+    min-width: 10%;
+}
+
+.player-winrate {
+    font-size: 14px;
+    color: #FFEB3B;
+    display: block;
+}
+
+.champion-icon {
+    margin-left: 5px;
+    font-size: 1.5em;
+}
+
+.banner-section {
+    background-color: #01AB7A;
+    padding: 8px 0;
+    text-align: center;
+}
+
+.banner-text {
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.black-level-card {
+    background-color: #000;
+    border: 2px solid gold;
+    color: gold;
+}
+
+.black-level-card .player-name,
+.black-level-card .player-coins {
+    color: gold;
+}
+
+.top-eight {
+    border: 2px solid gold;
+    background-color: rgba(255, 215, 0, 0.1);
+}
+
+.playing-at-club {
+    font-size: 10px;
+    color: #4CAF50;
+    display: block;
+    margin-top: 5px;
+}
+
+.player-coins {
+    margin-top: 10px;
+}
+
+.player-card.playing-at-club-border {
+    border: 2px solid #4CAF50;
+}
+
+.player-card.playing-at-club-border .progress-bar {
+    border: 2px solid #4CAF50;
+}
+
+.studio-name {
+    font-size: 12px;
+    color: #888;
+    margin-left: 5px;
+}
+
+.club-name {
+    display: block;
+    font-size: 0.85em;
+    color: #777;
+    font-weight: 400;
+    margin-top: 2px;
+}
+
+/* Responsive Adjustments */
+@media only screen and (max-width: 600px) {
+    .search-icon {
+        display: block;
+    }
+
+    #searchInput {
+        width: 100%;
+    }
+
+    .filters {
+        flex-direction: column;
+    }
+
+    .filters > * {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .snooker-champions {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .toolbar {
+        margin-bottom: 20px;
+    }
+
+    .search {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+}

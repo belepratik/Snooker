@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club Players</title>
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="clubplayers.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <link rel="icon"
+        href="https://github.com/AnkitBele21/centurydewas/blob/updateframedata/photo/Thumbnail.jpg?raw=true"
+        type="image/x-icon">
+    <!-- sweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="loader.js" defer></script>
+    <script src="clubplayers.js" defer></script>
+
+</head>
+
+<body>
+    <header class="header">
+        <img id="clubLogo" src=""
+            alt="SnookerPlus Logo" style="max-height: 60px; max-width: 200px; object-fit: contain;">
+        <h2 id="heading"></h2>
+        <h1>Club Players</h1>
+        <button id="backButton" class="btn btn-primary">Back</button>
+        <button id="adjustmentButton" class="btn btn-primary">Adjustment</button> <!-- New "Adjustment" button -->
+        <button id="addPlayerButton" class="btn btn-success ml-2">Add Player</button>
+        <select id="history" class="btn btn-success ml-2" onchange="historyRedirect()">
+            <option value="">Select History</option>
+            <option value="topup">TopUp</option>
+            <option value="purchase">Purchase</option>
+            <option value="adjustment">Adjustment</option>
+        </select>
+
+        <!-- <button id="historyButton"  class="btn btn-success ml-2">History</button> -->
+    </header>
+
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between mb-3">
+            <input type="search" id="playerSearch" class="form-control" placeholder="Search player">
+        </div>
+        <table class="table" id="playersTable">
+            <thead>
+                <tr>
+                    <th>PlayerID</th>
+                    <th>Player Name</th>
+                    <th>Player MobileNo</th>
+                    <th id="balanceHeader">Balance <span id="balanceArrow">↕</span></th>
+                    <th>Actions</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Players data will be inserted here by clubplayers.js -->
+            </tbody>
+        </table>
+
+        <div class="menu" id="menu">
+            <ul>
+                <li><a  id="matchRecord">Matches Record</a></li>
+                <li><a  id="topupRecord">TopUp Records</a></li>
+                <li><a  id="purchaseRecord">Purchase Records</a></li>
+            </ul>
+        </div>
+        
+        <div class="loader">
+            <img src="/public/Billiard ball.gif" class="bill" id="billLoader" alt="">
+        </div>
+    </div>
+
+    <!-- Add Player Modal -->
+    <div id="addPlayerModal" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Player</h5>
+                    <button type="button" class="close" aria-label="Close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addPlayerForm">
+                        <div class="form-group">
+                            <label for="playerMobile">Player Mobile:</label>
+                            <input type="text" class="form-control" id="playerMobile" >
+                        </div>
+                        <div class="form-group">
+                            <label for="playerName">Player Name:</label>
+                            <input type="text" class="form-control" id="playerName" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Adjustment Modal -->
+    <div id="adjustmentModal" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Adjustment</h5>
+                    <button type="button" class="close" aria-label="Close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="adjustmentForm">
+                        <div class="form-group">
+                            <label for="winnerName">Winner Name:</label>
+                            <select name="winnerName" id="winnerName">
+
+                            </select>
+                            <!-- <input type="text" class="form-control" id="winnerName" required> -->
+                        </div>
+                        <div class="form-group">
+                            <label for="loserName">Loser Name:</label>
+                            <select name="loserName" id="loserName">
+
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="amount">Amount:</label>
+                            <input type="number" class="form-control" id="amount" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--topup Modal -->
+    <div id="topUpModal" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">TopUp</h5>
+                    <button type="button" class="close" aria-label="Close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="topupForm">
+                        <div class="form-group">
+                            <label for="topupAmount">TopUp Amount:</label>
+                            <input type="number" class="form-control" id="topupAmount" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="paymentType">Payment mode:</label>
+                            <div class="option">
+                                <input type="radio" class="form-control" id="online" name="paymentType" value="online"
+                                    checked>
+                                <label for="online">Online</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" class="form-control" id="offline" name="paymentType" value="Cash">
+                                <label for="offline">Cash</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Top Up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--purchase Modal -->
+    <div id="purchaseModal" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Purchase</h4>
+                    <button type="button" class="close" aria-label="Close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="purchaseForm">
+                        <div class="form-group">
+                            <div class="items" id="items">
+                                <!-- items will be added dynamicaly here  -->
+                            </div>
+                            <div class="">
+                                <label for="purchaseItem">Purchase Item:</label>
+                                <input type="text" class="form-control" id="purchaseItem">
+                            </div>
+
+                            <div class=""><label for="purchaseAmount">Purchase Amount:</label>
+                                <input type="number" class="form-control" id="purchaseAmount">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="purchase">Purchase</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

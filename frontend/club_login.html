@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Snooker+ Club Login</title>
+  <link rel="stylesheet" href="club_login.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="brand">
+      <img src="https://img1.wsimg.com/isteam/ip/9e11a5db-9940-4d56-b773-7f8426617dc8/Frame%2012995%20(1).png/:/cr=t:0%25,l:0%25,w:100%25,h:100%25" alt="Snooker+ Logo" class="logo" />
+      <p class="tagline">Where Snooker Meets Innovation</p>
+    </div>
+
+    <div class="card">
+      <h2>Club Login</h2>
+      <form action="/login/club_login" method="post" id="loginForm">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter Username" required />
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter Password" required />
+
+        <label for="role">Choose Role</label>
+        <div class="select-wrapper">
+          <select name="role" id="role" required>
+            <option value="" disabled selected>Choose Role</option>
+            <option value="admin">Admin</option>
+            <option value="operator">Operator</option>
+          </select>
+        </div>
+
+        <label for="mode">Choose Mode</label>
+        <div class="select-wrapper">
+          <select name="mode" id="mode" required>
+            <option value="" disabled selected>Select Mode</option>
+            <option value="manual">Manual</option>
+            <option value="TV">TV Mode</option>
+          </select>
+        </div>
+
+        <button type="submit">Login</button>
+      </form>
+
+      <!-- Forgot PIN link -->
+      <div class="forgot-pin">
+        <a href="https://api.whatsapp.com/send/?phone=919875808427&text=Hello%2C+I+forgot+my+Snooker%2B+PIN.+Can+you+please+help+me+recover+it%3F&type=phone_number&app_absent=0" target="_blank">
+          Forgot PIN?
+        </a>
+      </div>
+
+      <!-- Sign Up -->
+      <div class="signup-link"><p class="cta"><strong>Join the Digital Revolution!</strong> <a href="https://forms.gle/cmshN9puD3Eryjdf8" target="_blank">Sign Up</a></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

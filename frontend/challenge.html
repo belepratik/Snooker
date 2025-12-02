@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge Page</title>
+    <link rel="stylesheet" href="challenge.css">
+</head>
+<body>
+    <!-- Work in Progress Banner -->
+    <div id="work-in-progress-banner">
+        <p>🚧 Work in Progress - This page is currently under construction. 🚧</p>
+    </div>
+
+    <div id="challenge-form-container">
+        <h2 id="challenger-name-display"></h2>
+        <form id="challenge-form">
+            <input type="text" id="challenger-name" hidden>
+            <label for="opponent-name">Challenge to Player:</label>
+            <input type="text" id="opponent-name" placeholder="Enter Opponent's Name" required>
+            <select id="match-type">
+                <option value="friendly">Friendly Match</option>
+                <option value="looserToPay">Looser to Pay</option>
+                <option value="plus">Plus</option>
+                <!-- Add more options as needed -->
+            </select>
+            <button type="submit" id="submit-challenge" disabled>Challenge Now</button>
+        </form>
+    </div>
+
+    <div id="incoming-challenges"></div>
+
+    <script src="challenge.js"></script>
+</body>
+</html>

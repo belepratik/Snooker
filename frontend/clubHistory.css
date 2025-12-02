@@ -1,0 +1,232 @@
+body {
+  background-color: #22252b;
+  color: #ffffff;
+  font-family: "Roboto", sans-serif;
+  margin: 20px;
+}
+
+.topupPurchase {
+  display: none;
+  margin-top: 50px;
+}
+
+.adjustment {
+  display: none;
+}
+
+.filter {
+  margin: 50px auto;
+  /*   height: 20%; */
+  padding: 1px 20px;
+  border-radius: 6px;
+  background-color: #33363b;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  color: white;
+}
+
+.filterInput {
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.filterDiv{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.filterDiv > label {
+  font-size: 16px;
+  font-weight: bold;
+}
+.filterContainer {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+#modeDiv{
+  display: none;
+}
+
+.otherFilterInput {
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+#applyBtn {
+  cursor: pointer;
+  display: block;
+  background-color: #028762;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 16px;
+  margin: 15px ;
+  border: 2px solid rgb(20, 20, 20);
+}
+
+#applyBtn {
+  transition: all 0.2s ease-in-out; /* Smooth transition effect */
+}
+
+#applyBtn:active {
+  transform: scale(0.95);
+  background-color: white;
+  color: #028762;
+  box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+.swal2-input::placeholder {
+  color: #555;
+}
+.swal2-textarea::placeholder {
+  color: #555;
+}
+
+#actionBtns{
+  display: none;
+}
+
+.addInventory,
+.addExpense {
+  cursor: pointer;
+  margin-left: 20px;
+  padding: 8px 14px;
+  background-color: #028762;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.stocks {
+  display: none;
+
+  margin-top: 30px;
+}
+
+.stocks_row {
+  /* background: red; */
+  display: flex;
+  justify-content: space-around;
+}
+
+.stockTableContainer {
+  height: 30vh;
+  overflow-y: scroll;
+}
+
+.addIcon,
+.checkIcon {
+  width: 30px;
+  height: 30px;
+  /* margin-left: 20px; */
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+h2 {
+  color: #01ab7a;
+}
+
+th {
+  background: #01ab7a;
+}
+
+tr {
+  background: #33363b;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.readOnlyInput {
+  width: 24.5vw;
+  padding: 7px 14px;
+  outline: none;
+  background: transparent;
+  color: white;
+  border: none;
+  text-align: left;
+  font-size: 16px;
+}
+
+.writeInput {
+  display: inline-block;
+  width: 24.5vw;
+  margin: auto;
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 16px;
+}
+
+#totalRow {
+  background: #028762;
+  color: white;
+  margin: 18px;
+  font-weight: bold;
+}
+
+.load {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#loadButton {
+  background-color: #01ab7a;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 6px 9px;
+  border: 2px solid white;
+  border-radius: 5px;
+}
+
+/* th {
+    background-color: #f2f2f2;
+} */
+
+#failure {
+  width: 90vw;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Access {
+  font-size: 5vw;
+  color: #01ab7a;
+  margin: 5px 0;
+}
+
+.sum {
+  font-size: 25px;
+}
+
+.img {
+  width: 15vw;
+}

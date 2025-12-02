@@ -1,0 +1,151 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #22252B;
+    color: #FFFFFF;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header img {
+    width: 100px; /* Adjusted logo size */
+}
+
+.header h1 {
+    color: #01AB7A;
+    font-size: 18px; /* Reduced font size */
+}
+
+.form-container {
+    background-color: #33363B;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.frame-id-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.frame-id-container label {
+    margin-right: 10px;
+    color: #FFFFFF;
+}
+
+.frame-id-container span {
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+    color: #FFFFFF;
+}
+
+input[type="text"], input[type="datetime-local"], select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #394045;
+    border: 1px solid #51575A;
+    color: #FFFFFF;
+    border-radius: 4px;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: start;
+    gap: 10px; /* Space between buttons */
+}
+
+.back-button, input[type="submit"] {
+    padding: 10px 20px; /* Adjusted padding */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px; /* Adjusted font size */
+}
+
+.back-button {
+    background-color: #6c757d;
+    color: white;
+}
+
+input[type="submit"] {
+    background-color: #01AB7A;
+    color: white;
+}
+
+.back-button:hover {
+    background-color: #545b62;
+}
+
+input[type="submit"]:hover {
+    background-color: #018a5e;
+}
+/* Add custom styling for the add button */
+#addPlayerButton {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#addPlayerButton:hover {
+    background-color: #45a049; /* Darker green */
+}
+
+/* Limit the number of player inputs to 6 */
+#playersContainer {
+    max-width: 500px;
+}
+.rate{
+    display: flex;
+    gap:20px ;
+}
+.rateRadio{
+    display: flex;
+    gap:10px ;
+}
+
+.playerContainer{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+.player-input {
+    width: calc(100% - 40px);
+    margin-bottom: 10px;
+}
+.remove{
+    width: 28px;
+    height: 28px;
+    padding: 3px;
+}
+.rem_icon{
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    
+}
+
+
+/* Ensure form container width does not exceed screen width */
+.form-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+}
+

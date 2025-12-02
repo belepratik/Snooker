@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-481JRCY8MD"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-481JRCY8MD');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snooker Plus</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://github.com/AnkitBele21/centurydewas/blob/updateframedata/photo/Thumbnail.jpg?raw=true" type="image/x-icon">
+    <style>
+        :root {
+            --primary: #01AB7A;
+            --primary-dark: #018a63;
+            --primary-light: rgba(1, 171, 122, 0.1);
+            --secondary: #FF9800;
+            --background: #22252B;
+            --surface: #33363B;
+            --text-primary: #FFFFFF;
+            --text-secondary: #CCCCCC;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text-primary);
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* Entry Page Styles */
+        .entry-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 1rem 2rem 2rem;
+            background: linear-gradient(135deg, var(--background) 0%, #1a1d22 100%);
+            position: relative;
+        }
+
+        .brand-container {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            margin-top: -2rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .entry-logo {
+            width: 350px;
+            height: auto;
+            margin-bottom: 0.5rem;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+        }
+
+        .tagline {
+            font-size: 1.25rem;
+            color: var(--primary);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin: 0;
+        }
+
+        /* Promotional Banner */
+        .promo-banner {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+            min-height: 60px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .promo-banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Action Grid */
+        .action-grid-banner {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 1rem;
+        }
+
+        .leaderboard-banner {
+            width: 100%;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .leaderboard-banner:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+        }
+
+        .leaderboard-banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 2rem;
+        }
+
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem 1rem;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .action-btn svg {
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .action-btn i {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .action-btn.primary {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(1, 171, 122, 0.3);
+        }
+
+        .action-btn.primary svg {
+            fill: #FFFFFF;
+        }
+
+        .action-btn.secondary {
+            background-color: var(--surface);
+            color: var(--text-primary);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+        }
+
+        .action-btn.primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Auth Buttons */
+        .auth-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .auth-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .auth-btn.player {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(4px);
+        }
+
+        .auth-btn.club {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Website URL */
+        .website-url {
+            position: absolute;
+            bottom: 20px;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            text-align: center;
+            width: 100%;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .website-url:hover {
+            color: var(--primary);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media only screen and (max-width: 768px) {
+            .entry-logo {
+                width: 300px;
+            }
+            
+            .action-btn {
+                padding: 1.25rem 0.75rem;
+            }
+        }
+
+        @media only screen and (max-width: 480px) {
+            .entry-logo {
+                width: 250px;
+            }
+            
+            .action-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .auth-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .auth-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Entry Page -->
+    <div id="entry-container" class="entry-container">
+        <div class="brand-container">
+            <img src="https://github.com/AnkitBele21/centurydewas/blob/main/photo/logo%20(1).png?raw=true" 
+                 alt="Snooker Plus Logo" class="entry-logo">
+            <p class="tagline">Where Snooker meets innovation</p>
+        </div>
+        
+        <!-- Promotional Banner -->
+        <div class="promo-banner">
+            <img src="https://github.com/AnkitBele21/centurydewas/blob/main/photo/banner%20with%20logo.png?raw=true" alt="Promotion Banner">
+        </div>
+        
+        
+        <div class="action-grid-banner">
+            <a href="https://app.snookerplus.in/">
+                <div class="leaderboard-banner">
+                    <img src="https://github.com/AnkitBele21/centurydewas/blob/main/photo/leaderboard2.png?raw=true" 
+                         alt="Leaderboard Banner">
+                </div>
+            </a>
+            
+        </div>
+        
+        <div class="action-grid">
+            <button class="action-btn primary">
+                <svg fill="#F45962" height="200px" width="200px" version="1.1" id="Layer_1" 
+                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                viewBox="0 0 512 512" xml:space="preserve" stroke="#F45962"><g id="SVGRepo_bgCarrier" 
+                stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <g> <path d="M116.668,376.414c4.932,1.715,8.875,5.692,10.556,10.65c1.195,3.558,4.523,5.803,8.081,5.803 c0.905,0,1.826-0.145,2.731-0.461c4.471-1.502,6.861-6.349,5.35-10.812c-3.354-9.907-11.238-17.869-21.12-21.308 c-4.454-1.545-9.301,0.819-10.854,5.265C109.858,369.997,112.222,374.861,116.668,376.414z"></path> <path d="M247.467,256c0-37.641-30.626-68.267-68.267-68.267S110.933,218.359,110.933,256s30.626,68.267,68.267,68.267 S247.467,293.641,247.467,256z M128,256c0-28.228,22.972-51.2,51.2-51.2c28.237,0,51.2,22.972,51.2,51.2 c0,28.237-22.963,51.2-51.2,51.2C150.972,307.2,128,284.237,128,256z"></path> <path d="M34.133,392.533c0,37.641,30.626,68.267,68.267,68.267c37.641,0,68.267-30.626,68.267-68.267 c0-37.641-30.626-68.267-68.267-68.267C64.759,324.267,34.133,354.893,34.133,392.533z M153.6,392.533 c0,28.237-22.963,51.2-51.2,51.2c-28.228,0-51.2-22.963-51.2-51.2c0-28.228,22.972-51.2,51.2-51.2 C130.637,341.333,153.6,364.305,153.6,392.533z"></path> <path d="M500.659,345.651c-1.98-3.84-43.639-77.85-78.234-139.255l-51.942-92.143c-13.619-24.158-20.087-35.627-23.885-41.062 l0.538-0.273C329.506,38.468,294.588,17.067,256,17.067c-38.545,0-73.489,21.393-91.034,55.543 c-6.093,10.795-149.265,264.55-153.694,273.169C3.797,360.337,0,376.064,0,392.533c0,56.465,45.935,102.4,102.4,102.4h273.067 c4.719,0,8.533-3.823,8.533-8.533c0-4.71-3.814-8.533-8.533-8.533H102.4c-47.044,0-85.333-38.281-85.333-85.333 c0-13.73,3.157-26.837,9.387-38.955c3.422-6.665,101.828-181.214,153.54-272.879C194.756,51.977,223.881,34.133,256,34.133 c32.145,0,61.244,17.835,75.938,46.558c0.085,0.162,0.171,0.316,0.265,0.478c2.338,4.087,149.871,265.677,153.293,272.307 c6.263,12.151,9.438,25.293,9.438,39.057c0,47.053-38.281,85.333-85.333,85.333c-4.71,0-8.533,3.823-8.533,8.533 c0,4.71,3.823,8.533,8.533,8.533c56.474,0,102.4-45.935,102.4-102.4C512,376.252,508.075,360.038,500.659,345.651z"></path> <path d="M184.823,239.881c4.932,1.715,8.875,5.692,10.547,10.65c1.195,3.55,4.523,5.803,8.081,5.803 c0.913,0,1.826-0.145,2.731-0.461c4.471-1.502,6.861-6.349,5.35-10.812c-3.345-9.907-11.238-17.869-21.112-21.308 c-4.471-1.553-9.318,0.819-10.863,5.265S180.369,238.327,184.823,239.881z"></path> <path d="M338.423,239.881c4.932,1.715,8.875,5.692,10.547,10.65c1.195,3.55,4.523,5.803,8.081,5.803 c0.913,0,1.826-0.145,2.731-0.461c4.471-1.502,6.861-6.349,5.35-10.812c-3.345-9.907-11.238-17.869-21.111-21.308 c-4.463-1.553-9.31,0.819-10.863,5.265C331.614,233.463,333.969,238.327,338.423,239.881z"></path> <path d="M401.067,256c0-37.641-30.626-68.267-68.267-68.267c-37.641,0-68.267,30.626-68.267,68.267s30.626,68.267,68.267,68.267 C370.441,324.267,401.067,293.641,401.067,256z M281.6,256c0-28.228,22.972-51.2,51.2-51.2c28.237,0,51.2,22.972,51.2,51.2 c0,28.237-22.963,51.2-51.2,51.2C304.572,307.2,281.6,284.237,281.6,256z"></path> <path d="M423.868,376.414c4.932,1.715,8.875,5.692,10.556,10.65c1.195,3.558,4.523,5.803,8.081,5.803 c0.905,0,1.826-0.145,2.731-0.461c4.471-1.502,6.861-6.349,5.35-10.812c-3.354-9.907-11.238-17.869-21.12-21.308 c-4.454-1.545-9.31,0.819-10.854,5.265C417.058,369.997,419.422,374.861,423.868,376.414z"></path> <path d="M261.623,103.347c4.932,1.715,8.875,5.692,10.547,10.65c1.195,3.558,4.523,5.803,8.081,5.803 c0.913,0,1.826-0.145,2.731-0.461c4.471-1.502,6.861-6.349,5.35-10.812c-3.345-9.907-11.238-17.869-21.112-21.308 c-4.454-1.544-9.318,0.819-10.863,5.265C254.814,96.93,257.169,101.794,261.623,103.347z"></path> <path d="M409.6,460.8c37.641,0,68.267-30.626,68.267-68.267c0-37.641-30.626-68.267-68.267-68.267s-68.267,30.626-68.267,68.267 C341.333,430.174,371.959,460.8,409.6,460.8z M409.6,341.333c28.237,0,51.2,22.972,51.2,51.2c0,28.237-22.963,51.2-51.2,51.2 c-28.228,0-51.2-22.963-51.2-51.2C358.4,364.305,381.372,341.333,409.6,341.333z"></path> <path d="M324.267,119.467c0-37.641-30.626-68.267-68.267-68.267c-37.641,0-68.267,30.626-68.267,68.267 c0,37.64,30.626,68.267,68.267,68.267C293.641,187.733,324.267,157.107,324.267,119.467z M204.8,119.467 c0-28.228,22.972-51.2,51.2-51.2c28.237,0,51.2,22.972,51.2,51.2c0,28.237-22.963,51.2-51.2,51.2 C227.772,170.667,204.8,147.703,204.8,119.467z"></path> <path d="M261.623,376.414c4.932,1.715,8.875,5.692,10.547,10.65c1.195,3.558,4.523,5.803,8.081,5.803 c0.913,0,1.826-0.145,2.731-0.461c4.471-1.502,6.861-6.349,5.35-10.812c-3.345-9.907-11.238-17.869-21.112-21.308 c-4.454-1.545-9.318,0.819-10.863,5.265C254.814,369.997,257.169,374.861,261.623,376.414z"></path> <path d="M256,460.8c37.641,0,68.267-30.626,68.267-68.267c0-37.641-30.626-68.267-68.267-68.267 c-37.641,0-68.267,30.626-68.267,68.267C187.733,430.174,218.359,460.8,256,460.8z M256,341.333c28.237,0,51.2,22.972,51.2,51.2 c0,28.237-22.963,51.2-51.2,51.2c-28.228,0-51.2-22.963-51.2-51.2C204.8,364.305,227.772,341.333,256,341.333z"></path> </g> </g> </g> </g></svg>
+                <span>Tournaments</span>
+            </button>
+            <button class="action-btn primary" onclick="window.open('https://www.youtube.com/@snooker_plus', '_blank')">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <g> 
+                        <path fill="none" d="M0 0h24v24H0z"></path> 
+                        <path fill-rule="nonzero" d="M16 4a1 1 0 0 1 1 1v4.2l5.213-3.65a.5.5 0 0 1 .787.41v12.08a.5.5 0 0 1-.787.41L17 14.8V19a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h14zM7.4 8.829a.4.4 0 0 0-.392.32L7 9.228v5.542a.4.4 0 0 0 .542.374l.073-.036 4.355-2.772a.4.4 0 0 0 .063-.624l-.063-.05L7.615 8.89A.4.4 0 0 0 7.4 8.83z"></path> 
+                    </g>
+                </svg>
+                <span>Live Matches</span>
+            </button>
+            <button class="action-btn secondary">
+                <i class="icon-services">🛠️</i>
+                <span>Services</span>
+            </button>
+            <button class="action-btn secondary">
+                <i class="icon-store">🛒</i>
+                <span>Store</span>
+            </button>
+        </div>
+
+        <div class="auth-actions">
+            <button class="auth-btn player" onclick="loginAs('player')">
+                <span>Player Login</span>
+            </button>
+            <button class="auth-btn club" onclick="window.location.href='https://app.snookerplus.in/club'">
+                <span>Club Login</span>
+            </button>
+        </div>
+        
+        <a href="https://www.snookerplus.in/" class="website-url">www.snookerplus.in</a>
+    </div>
+
+    <script>
+        // Navigation functions
+        function showLeaderboard() {
+            document.getElementById('entry-container').style.display = 'none';
+            document.getElementById('leaderboard-container').style.display = 'block';
+        }
+        
+        function showEntryPage() {
+            document.getElementById('entry-container').style.display = 'flex';
+            document.getElementById('leaderboard-container').style.display = 'none';
+        }
+
+        function loginAs(type) {
+            window.location.href = `/login?type=${type}`;
+        }
+    </script>
+</body>
+</html>

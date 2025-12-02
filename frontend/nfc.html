@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Player NFC Registration</title>
+</head>
+
+<body>
+  <h1>Register Player</h1>
+  <form id="playerForm">
+    <p id="message"></p>
+    <label for="playerName">Player Name:</label>
+    <input type="text" id="playerName" name="playerName" required>
+
+    <label for="nfcId">NFC Card ID:</label>
+    <input type="text" id="nfcId" name="nfcId" readonly>
+
+    <button type="submit">Add Player</button>
+  </form>
+
+  <button id="startNFC">Start NFC Scan</button>
+
+  <script>
+    const nfcButton = document.getElementById('startNFC');
+    const playerNameInput = document.getElementById('playerName');
+    const nfcIdInput = document.getElementById('nfcId');
+    const message = document.getElementById('message');
+
+    nfcButton.addEventListener('click', async () => {
+
+      if ('NDEFReader' in window) {
+        alert('Ready to scan NFC card');
+
+        try {
+          const nfcReader = new NDEFReader();
+          await nfcReader.scan();
+
+          nfcReader.onreading = (event) => {
+            const nfcMessage = event.message.records[0];
+            if (nfcMessage) {
+              const decoder = new TextDecoder();
+              const nfcId = decoder.decode(nfcMessage.data);
+              const nfcIdObj = JSON.parse(nfcId);
+              playerNameInput.value = nfcIdObj.playerName; // Populate player name in the form
+              nfcIdInput.value = nfcIdObj.cardid; // Populate NFC card ID in the form
+            }
+          };
+
+        } catch (error) {
+          message.textContent = `${error}`;
+          console.error('NFC scan failed', error);
+          alert('NFC scanning is not supported or failed');
+        }
+      } else {
+        alert('Web NFC is not supported on this device or browser');
+      }
+    });
+
+    // Submit the form to the backend
+    const playerForm = document.getElementById('playerForm');
+    playerForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const playerName = document.getElementById('playerName').value;
+      const nfcId = document.getElementById('nfcId').value;
+
+      try {
+        const response = await fetch('/addPlayer', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ playerName, nfcId }),
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          alert('Player added successfully!');
+        } else {
+          alert(result.error || 'Failed to add player');
+        }
+      } catch (error) {
+        console.error('Error submitting form', error);
+        alert('An error occurred. Please try again.');
+      }
+    });
+  </script>
+</body>
+
+</html>

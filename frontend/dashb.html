@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon"
+        href="https://github.com/AnkitBele21/centurydewas/blob/updateframedata/photo/Thumbnail.jpg?raw=true"
+        type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .dateInput::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+        }
+
+
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 280px;
+            height: 100vh;
+            z-index: 50;
+            transition: all 0.3s ease;
+            background-color: #191b20;
+            padding-top: 6rem;
+        }
+
+        .mobile-sidebar.open {
+            left: 0;
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+        }
+
+        .sidebar-overlay.open {
+            display: block;
+        }
+
+        .green-row {
+            background-color: rgba(0, 100, 0, 0.2);
+        }
+
+        .red-row {
+            background-color: rgba(139, 0, 0, 0.2);
+        }
+
+        #summaryTable {
+            width: 100%;
+        }
+
+        #summaryTable th,
+        #summaryTable td {
+            padding: 8px 12px;
+        }
+
+        #summaryTable th {
+            cursor: pointer;
+        }
+
+        #summaryTable th:hover {
+            background-color: #015738;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #2a2e34;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: white;
+            font-weight: bold;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #4b5563;
+            border-radius: 0.375rem;
+            background-color: #1f2937;
+            color: white;
+        }
+
+        .form-radio {
+            border-color: #4b5563;
+            background-color: #1f2937;
+        }
+
+        .form-submit {
+            background-color: #01ab7a;
+            color: white;
+            font-weight: bold;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+        .form-submit:hover {
+            background-color: #018a63;
+        }
+
+        .player-pricing-group {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            margin-bottom: 1rem;
+        }
+
+        .grid-cols-3 {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .gap-4 {
+            gap: 1rem;
+        }
+
+        .sticky {
+            position: sticky;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Add to your existing style section */
+        .operators-list {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+
+        #operatorsTableBody tr:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        #operatorsTableBody button {
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            transition: all 0.2s;
+        }
+    </style>
+</head>
+
+<body class="bg-[#191b20] min-h-screen">
+    <!-- Header -->
+    <!-- Header Section -->
+    <header class="bg-[#2a2e34] fixed z-30 top-0 right-0 left-0">
+        <!-- Top row - Logo and Menu -->
+        <div class="flex items-center p-2 h-14 relative">
+            <!-- Menu button (absolute positioned left) -->
+            <button id="mobileMenuButton" class="text-white p-2 rounded-md lg:hidden absolute left-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+
+            <!-- Centered Logo (absolute centered) -->
+            <div class="logo absolute left-1/2 transform -translate-x-1/2">
+                <a href="/dashboard" class="block">
+                    <img id="clubLogo" class="h-10 object-contain"
+                        src="https://github.com/AnkitBele21/centurydewas/blob/main/photo/logo%20(1).png?raw=true "
+                        alt="Century Dewas Logo">
+                </a>
+            </div>
+
+            <!-- User menu with dropdown (absolute positioned right) -->
+            <div class="loggedInUser absolute right-2 flex items-center">
+                <!-- Dropdown menu button -->
+                <div class="relative">
+                    <button id="userMenuButton"
+                        class="text-white p-2 rounded-full hover:bg-gray-700 focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                        </svg>
+                    </button>
+
+                    <!-- Dropdown menu -->
+                    <div id="userMenuDropdown"
+                        class="hidden absolute right-0 mt-2 w-48 bg-[#2a2e34] rounded-md shadow-lg py-1 z-50 border border-gray-600">
+                        <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-[#01ab7a]">Operators</a>
+                        <a href="/club" class="block px-4 py-2 text-sm text-white hover:bg-[#01ab7a] logout">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom row - Frames button left aligned -->
+        <div class="flex items-center p-2 border-t border-gray-600 h-12">
+            <a href="/frame"
+                class="bg-[#01ab7a] hover:bg-[#018a63] text-white font-bold rounded-lg px-3 py-1 text-sm transition-colors">
+                Frames
+            </a>
+        </div>
+    </header>
+
+    <!-- Mobile Sidebar -->
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
+    <div id="mobileSidebar" class="mobile-sidebar lg:hidden">
+        <ul class="sideBarLinks space-y-2 p-4">
+            <!-- <li class="sideBarLink hover:bg-[#2a2e34] text-[#A4A5AA] hover:text-white text-white bg-[#2a2e34] px-4 py-2 rounded-lg text-base font-bold flex gap-3 items-center"
+                data-function="showSummarySection">
+                <img src="./public/summary.png" class="w-5 h-5" alt="">
+                <a href="" class="hover:text-shadow-md" onclick="event.preventDefault();">Summary</a>
+            </li> -->
+            <li class="sideBarLink hover:bg-[#2a2e34] text-[#A4A5AA] hover:text-white text-white bg-[#2a2e34] px-4 py-2 rounded-lg text-base font-bold flex gap-3 items-center"
+                data-function="showReportSection">
+                <img src="./public/report.png" class="w-5 h-5" alt="">
+                <a href="" class="hover:text-shadow-md" onclick="event.preventDefault();">Report</a>
+            </li>
+            <li class="sideBarLink hover:bg-[#2a2e34] text-[#A4A5AA] hover:text-white px-4 py-2 rounded-lg text-base font-bold flex gap-3 items-center"
+                data-function="showTableSection">
+                <img src="./public/table.png" class="w-5 h-5" alt="">
+                <a href="" class="hover:text-shadow-md" onclick="event.preventDefault();">Table</a>
+            </li>
+            <li class="sideBarLink hover:bg-[#2a2e34] px-4 py-2 rounded-lg text-base font-bold text-[#A4A5AA] flex gap-3 items-center"
+                data-function="showTopupSection">
+                <img src="./public/topup.png" class="w-5 h-5" alt="">
+                <a href="" class="hover:text-white hover:text-shadow-md">Topup</a>
+            </li>
+            <li class="sideBarLink hover:bg-[#2a2e34] px-4 py-2 rounded-lg text-base font-bold text-[#A4A5AA] flex gap-3 items-center"
+                data-function="showPurchaseSection">
+                <img src="./public/purchase.png" class="w-5 h-5" alt="">
+                <a href="" class="hover:text-white hover:text-shadow-md">Purchase</a>
+            </li>
+            <li class="sideBarLink hover:bg-[#2a2e34] px-4 py-2 rounded-lg text-base font-bold flex gap-3 items-center text-[#A4A5AA]"
+                data-function="showExpenseSection">
+                <img src="./public/expense.png" class="w-5 h-5" alt="">
+                <a href="" class="hover:text-white hover:text-shadow-md">Expense</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Desktop Sidebar -->
+    <div class="sidebar hidden lg:block lg:fixed lg:py-8 lg:px-6 lg:w-[20vw] h-[calc(100vh-5rem)] mt-20 flex flex-col">
+        <ul class="sideBarLinks space-y-2 p-4 lg:p-0">
+            <li class="sideBarLink hover:bg-[#2a2e34] text-[#A4A5AA] hover:text-white text-white bg-[#2a2e34] px-4 py-2 lg:px-7 lg:py-3 rounded-lg lg:rounded-2xl text-lg lg:text-xl font-bold flex gap-3 lg:gap-4 items-center"
+                data-function="showSummarySection">
+                <img src="./public/summary.png" class="w-5 h-5 lg:w-6 lg:h-6" alt="">
+                <a href="" class="hover:text-shadow-md" onclick="event.preventDefault();">Summary</a>
+            </li>
+            <li class="sideBarLink hover:bg-[#2a2e34] text-[#A4A5AA] hover:text-white text-white bg-[#2a2e34] px-4 py-2 lg:px-7 lg:py-3 rounded-lg lg:rounded-2xl text-lg lg:text-xl font-bold flex gap-3 lg:gap-4 items-center"
+                data-function="showReportSection">
+                <img src="./public/report.png" class="w-5 h-5 lg:w-6 lg:h-6" alt="">
+                <a href="" class="hover:text-shadow-md" onclick="event.preventDefault();">Report</a>
+            </li>
+            <li class="sideBarLink hover:bg-[#2a2e34] text-[#A4A5AA] hover:text-white px-4 py-2 lg:px-7 lg:py-3 rounded-lg lg:rounded-2xl text-lg lg:text-xl font-bold flex gap-3 lg:gap-4 items-center"
+                data-function="showTableSection">
+                <img src="./public/table.png" class="w-5 h-5 lg:w-6 lg:h-6" alt="">
+                <a href="" class="hover:text-shadow-md" onclick="event.preventDefault();">Table</a>
+            </li>
+            <li class="sideBarLink hover:bg-[#2a2e34] px-4 py-2 lg:px-7 lg:py-3 rounded-lg lg:rounded-2xl text-lg lg:text-xl font-bold text-[#A4A5AA] flex gap-3 lg:gap-4 items-center"
+                data-function="showTopupSection">
+                <img src="./public/topup.png" class="w-5 h-5 lg:w-6 lg:h-6" alt="">
+                <a href="" class="hover:text-white hover:text-shadow-md">Topup</a>
+            </li>
+            <li class="sideBarLink hover:bg-[#2a2e34] px-4 py-2 lg:px-7 lg:py-3 rounded-lg lg:rounded-2xl text-lg lg:text-xl font-bold text-[#A4A5AA] flex gap-3 lg:gap-4 items-center"
+                data-function="showPurchaseSection">
+                <img src="./public/purchase.png" class="w-5 h-5 lg:w-6 lg:h-6" alt="">
+                <a href="" class="hover:text-white hover:text-shadow-md">Purchase</a>
+            </li>
+            <li class="sideBarLink hover:bg-[#2a2e34] px-4 py-2 lg:px-7 lg:py-3 rounded-lg lg:rounded-2xl text-lg lg:text-xl font-bold flex gap-3 lg:gap-4 items-center text-[#A4A5AA]"
+                data-function="showExpenseSection">
+                <img src="./public/expense.png" class="w-5 h-5 lg:w-6 lg:h-6" alt="">
+                <a href="" class="hover:text-white hover:text-shadow-md">Expense</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="mainContent w-full lg:w-[75vw] lg:ml-[22vw] mt-28 lg:mt-20 px-4 pb-4">
+        <!-- Summary Section -->
+        <div class="section hidden w-full p-4 lg:p-6 lg:py-8" id="summarySection">
+            <div class="head flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6">
+                <h1 class="text-3xl lg:text-5xl font-extrabold text-white">Summary</h1>
+                <div class="flex gap-2">
+                    <div
+                        class="dateRange bg-gray-800 border-2 border-gray-600 rounded-lg p-2 flex items-center gap-2 text-white">
+                        <input type="datetime-local" id="startDate"
+                            class="dateInput text-white bg-transparent border-none outline-none px-2">
+                        <span class="text-white text-xl font-bold">-</span>
+                        <input type="datetime-local" id="endDate"
+                            class="dateInput text-white bg-transparent border-none outline-none px-2">
+                    </div>
+                    <button onclick="fetchSummary()"
+                        class="bg-[#01ab7a] hover:bg-[#018a63] text-white font-bold rounded-lg px-3 py-1 text-sm transition-colors">
+                        Apply
+                    </button>
+                </div>
+            </div>
+
+            <div class="cont mt-6 lg:mt-8 space-y-6 lg:space-y-8 flex items-center flex-col text-white mx-auto">
+                <div class="w-full">
+                    <div class="flex items-center gap-4 mb-4">
+                        <input type="text" id="playerSearch" placeholder="Search player..."
+                            class="bg-gray-800 border-2 border-gray-600 rounded-lg p-2 text-white">
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" id="playerSummaryCheckbox" class="rounded">
+                            <span>Player Summary</span>
+                        </label>
+                    </div>
+
+                    <div id="loading" style="display: none;" class="text-center py-4">
+                        Loading data...
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table id="summaryTable" class="w-full text-white text-center border-collapse">
+                            <thead class="bg-[#016346]">
+                                <tr id="tableHeader"></tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-600"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Report Section -->
+        <div class="section report hidden w-full p-4 lg:p-6 lg:py-8" id="reportSection">
+            <div class="head flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6">
+                <h1 class="text-3xl lg:text-5xl font-extrabold text-white">Report</h1>
+                <div
+                    class="dateRange bg-gray-800 border-2 border-gray-600 rounded-lg p-2 flex items-center gap-2 text-white w-full lg:w-auto">
+                    <input type="date" name="startDate" id="startDateReport"
+                        class="dateInput text-white bg-transparent border-none outline-none px-2 w-full lg:w-auto">
+                    <span class="text-white text-xl font-bold">-</span>
+                    <input type="date" name="endDate" id="endDateReport"
+                        class="dateInput text-white bg-transparent border-none outline-none px-2 w-full lg:w-auto">
+                </div>
+            </div>
+
+            <div class="cont mt-6 lg:mt-8 space-y-6 lg:space-y-8 flex items-center flex-col text-white mx-auto">
+                <div class="summary-box bg-[#2a2e34] p-4 rounded-lg w-full">
+                    <p class="font-bold text-lg lg:text-xl mt-1 lg:mt-3">Total TableMoney: <span id="totalTableMoney"
+                            class="font-normal ml-2">0.00</span></p>
+                    <p class="font-bold text-lg lg:text-xl mt-1 lg:mt-3">Total Duration: <span id="totalDuration"
+                            class="font-normal ml-2">0.00</span></p>
+                </div>
+
+                <div class="reportGraph w-full" style="height: 300px;">
+                    <canvas id="reportChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table Section -->
+        <div class="section hidden w-full p-4 lg:p-6 lg:py-4" id="tableSection">
+            <div class="head flex justify-between items-center mb-8 lg:mb-16">
+                <h1 class="text-3xl lg:text-5xl font-extrabold text-[#01ab7a]">Table</h1>
+                <button id="addTableBtn"
+                    class="bg-[#01ab7a] hover:bg-[#018a63] text-white font-bold rounded-lg px-4 py-2 text-sm transition-colors">
+                    Add Table
+                </button>
+            </div>
+
+            <div class="cont mt-6 lg:mt-8 space-y-8">
+                <div class="tablePerformance">
+                    <div class="head flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6">
+                        <h1 class="text-2xl lg:text-3xl font-bold text-white">Table Duration</h1>
+                        <select name="month" id="monthInput"
+                            class="monthInput bg-gray-800 border-2 border-gray-600 rounded-lg p-2 text-white w-full lg:w-auto">
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </div>
+                    <div style="height: 300px;">
+                        <canvas id="tableChart"></canvas>
+                    </div>
+                </div>
+
+                <div id="occupancy" class="mt-12 lg:mt-24">
+                    <div class="head flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6">
+                        <h1 class="text-2xl lg:text-3xl font-bold text-white">Table Occupancy</h1>
+                        <input type="date" name="occupDate" id="occupDateFilter"
+                            class="dateInput bg-gray-800 border-2 border-gray-600 rounded-lg p-2 text-white w-full lg:w-auto">
+                    </div>
+                    <div style="height: 300px;">
+                        <div id="tableOccupancyChart" class="chart-container h-full"></div>
+                    </div>
+                </div>
+
+                <div id="peakhour" class="mt-12 lg:mt-24">
+                    <div class="head flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6">
+                        <h1 class="text-2xl lg:text-3xl font-bold text-white">Peak Hours</h1>
+                        <select name="month" id="monthInputPeak"
+                            class="monthInput bg-gray-800 border-2 border-gray-600 rounded-lg p-2 text-white w-full lg:w-auto">
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </div>
+                    <div style="height: 300px;">
+                        <canvas id="peakChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Table Modal -->
+        <div id="addTableModal" class="modal">
+            <div class="modal-content" style="max-height: 80vh; overflow-y: auto;">
+                <div class="modal-header sticky top-0 bg-[#2a2e34] z-10">
+                    <h3 class="modal-title">Add New Table</h3>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <form id="addTableForm" class="p-4">
+                    <!-- Basic Table Info -->
+                    <div class="form-group">
+                        <label for="tableName" class="form-label">Table Name</label>
+                        <input type="text" id="tableName" class="form-input" placeholder="e.g., Royal Table" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tableType" class="form-label">Table Type</label>
+                        <select id="tableType" class="form-input" required>
+                            <option value="">Select Table Type</option>
+                            <option value="Snooker">Snooker</option>
+                            <option value="Mini Snooker">Mini Snooker</option>
+                            <option value="Pool">Pool</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <!-- Standard Pricing -->
+                    <div class="form-group">
+                        <label class="form-label">Standard Pricing (2 Players)</label>
+                        <div class="grid grid-cols-3 gap-4 mb-4">
+                            <div>
+                                <select id="baseHourlyOption" class="form-input mb-2"
+                                    onchange="toggleRateInput('baseHourly', this.value)">
+                                    <option value="rate">Hourly Rate</option>
+                                    <option value="na">NA</option>
+                                </select>
+                                <input type="number" id="baseHourly" class="form-input" placeholder="₹">
+                            </div>
+                            <div>
+                                <select id="baseFrameOption" class="form-input mb-2"
+                                    onchange="toggleRateInput('baseFrame', this.value)">
+                                    <option value="rate">Frame Rate</option>
+                                    <option value="na">NA</option>
+                                </select>
+                                <input type="number" id="baseFrame" class="form-input" placeholder="₹">
+                            </div>
+                            <div>
+                                <select id="baseMinOption" class="form-input mb-2"
+                                    onchange="toggleRateInput('baseMin', this.value)">
+                                    <option value="rate">Min Charge</option>
+                                    <option value="na">NA</option>
+                                </select>
+                                <input type="number" id="baseMin" class="form-input" placeholder="₹">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Player-Based Pricing Toggle -->
+                    <div class="form-group">
+                        <label class="inline-flex items-center">
+                            <input type="checkbox" id="enablePlayerPricing"
+                                class="form-checkbox h-4 w-4 text-[#01ab7a]">
+                            <span class="ml-2 font-medium">Enable different pricing for more players</span>
+                        </label>
+                    </div>
+
+                    <!-- Additional Player Pricing -->
+                    <div id="playerPricingSection" class="hidden space-y-4">
+                        <!-- 3 Players -->
+                        <div class="player-pricing-group">
+                            <h4 class="text-white font-medium mb-2">3 Players</h4>
+                            <div class="grid grid-cols-3 gap-4">
+                                <div>
+                                    <select class="form-input mb-2"
+                                        onchange="toggleRateInput('rate3Hourly', this.value)">
+                                        <option value="rate">Hourly</option>
+                                        <option value="na">NA</option>
+                                    </select>
+                                    <input type="number" id="rate3Hourly" class="form-input" placeholder="₹">
+                                </div>
+                                <div>
+                                    <select class="form-input mb-2"
+                                        onchange="toggleRateInput('rate3Frame', this.value)">
+                                        <option value="rate">Per frame</option>
+                                        <option value="na">NA</option>
+                                    </select>
+                                    <input type="number" id="rate3Frame" class="form-input" placeholder="₹">
+                                </div>
+                                <div>
+                                    <select class="form-input mb-2" onchange="toggleRateInput('rate3Min', this.value)">
+                                        <option value="rate">Minimum</option>
+                                        <option value="na">NA</option>
+                                    </select>
+                                    <input type="number" id="rate3Min" class="form-input" placeholder="₹">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4 Players -->
+                        <div class="player-pricing-group">
+                            <h4 class="text-white font-medium mb-2">4 Players</h4>
+                            <div class="grid grid-cols-3 gap-4">
+                                <div>
+                                    <select class="form-input mb-2"
+                                        onchange="toggleRateInput('rate4Hourly', this.value)">
+                                        <option value="rate">Hourly</option>
+                                        <option value="na">NA</option>
+                                    </select>
+                                    <input type="number" id="rate4Hourly" class="form-input" placeholder="₹">
+                                </div>
+                                <div>
+                                    <select class="form-input mb-2"
+                                        onchange="toggleRateInput('rate4Frame', this.value)">
+                                        <option value="rate">Per frame</option>
+                                        <option value="na">NA</option>
+                                    </select>
+                                    <input type="number" id="rate4Frame" class="form-input" placeholder="₹">
+                                </div>
+                                <div>
+                                    <select class="form-input mb-2" onchange="toggleRateInput('rate4Min', this.value)">
+                                        <option value="rate">Minimum</option>
+                                        <option value="na">NA</option>
+                                    </select>
+                                    <input type="number" id="rate4Min" class="form-input" placeholder="₹">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 5 Players -->
+                        <div class="player-pricing-group">
+                            <h4 class="text-white font-medium mb-2">5 Players</h4>
+                            <div class="grid grid-cols-3 gap-4">
+                                <div>
+                                    <select class="form-input mb-2"
+                                        onchange="toggleRateInput('rate5Hourly', this.value)">
+                                        <option value="rate">Hourly</option>
+                                        <option value="na">NA</option>
+                                    </select>
+                                    <input type="number" id="rate5Hourly" class="form-input" placeholder="₹">
+                                </div>
+                                <div>
+                                    <select class="form-input mb-2"
+                                        onchange="toggleRateInput('rate5Frame', this.value)">
+                                        <option value="rate">Per frame</option>
+                                        <option value="na">NA</option>
+                                    </select>
+                                    <input type="number" id="rate5Frame" class="form-input" placeholder="₹">
+                                </div>
+                                <div>
+                                    <select class="form-input mb-2" onchange="toggleRateInput('rate5Min', this.value)">
+                                        <option value="rate">Minimum</option>
+                                        <option value="na">NA</option>
+                                    </select>
+                                    <input type="number" id="rate5Min" class="form-input" placeholder="₹">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 6 Players -->
+                        <div class="player-pricing-group">
+                            <h4 class="text-white font-medium mb-2">6 Players</h4>
+                            <div class="grid grid-cols-3 gap-4">
+                                <div>
+                                    <select class="form-input mb-2"
+                                        onchange="toggleRateInput('rate6Hourly', this.value)">
+                                        <option value="rate">Hourly</option>
+                                        <option value="na">NA</option>
+                                    </select>
+                                    <input type="number" id="rate6Hourly" class="form-input" placeholder="₹">
+                                </div>
+                                <div>
+                                    <select class="form-input mb-2"
+                                        onchange="toggleRateInput('rate6Frame', this.value)">
+                                        <option value="rate">Per frame</option>
+                                        <option value="na">NA</option>
+                                    </select>
+                                    <input type="number" id="rate6Frame" class="form-input" placeholder="₹">
+                                </div>
+                                <div>
+                                    <select class="form-input mb-2" onchange="toggleRateInput('rate6Min', this.value)">
+                                        <option value="rate">Minimum</option>
+                                        <option value="na">NA</option>
+                                    </select>
+                                    <input type="number" id="rate6Min" class="form-input" placeholder="₹">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="form-submit sticky bottom-0">Add Table</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Topup Section -->
+        <div class="section hidden w-full p-4 lg:p-6 lg:py-4" id="topupSection">
+            <div class="head flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8 lg:mb-16">
+                <h1 class="text-3xl lg:text-5xl font-extrabold text-[#01ab7a]">TopUp</h1>
+                <div
+                    class="dateRange bg-gray-800 border-2 border-gray-600 rounded-lg p-2 flex items-center gap-2 text-white w-full lg:w-auto">
+                    <input type="date" name="startDate" id="startDateTopUp"
+                        class="dateInput text-white bg-transparent border-none outline-none px-2 w-full lg:w-auto">
+                    <span class="text-white text-xl font-bold">-</span>
+                    <input type="date" name="endDate" id="endDateTopup"
+                        class="dateInput text-white bg-transparent border-none outline-none px-2 w-full lg:w-auto">
+                </div>
+            </div>
+
+            <div class="cont mt-6 lg:mt-8 space-y-6 lg:space-y-8 flex items-center flex-col text-white mx-auto">
+                <div class="summary-box bg-[#2a2e34] p-4 rounded-lg w-full">
+                    <p class="font-bold text-lg lg:text-xl mt-1 lg:mt-3">Total Topup: <span id="totalTopup"
+                            class="font-normal ml-2">0.00</span></p>
+                    <p class="font-bold text-lg lg:text-xl mt-1 lg:mt-3">Online Total: <span id="onlineTotal"
+                            class="font-normal ml-2">0.00</span></p>
+                    <p class="font-bold text-lg lg:text-xl mt-1 lg:mt-3">Cash Total: <span id="cashTotal"
+                            class="font-normal ml-2">0.00</span></p>
+                </div>
+
+                <div class="table-responsive w-full overflow-x-auto">
+                    <table id="topupTable" class="w-full text-white text-center border-collapse border border-gray-600">
+                        <thead class="bg-[#016346]">
+                            <tr>
+                                <th class="p-2 lg:p-4 font-bold text-base lg:text-xl">Date</th>
+                                <th class="p-2 lg:p-4 font-bold text-base lg:text-xl">Total Topup</th>
+                                <th class="p-2 lg:p-4 font-bold text-base lg:text-xl">Online</th>
+                                <th class="p-2 lg:p-4 font-bold text-base lg:text-xl">Cash</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-600">
+                            <!-- Table rows will be dynamically inserted here by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Purchase Section -->
+        <div class="section hidden w-full p-4 lg:p-6 lg:py-4" id="purchaseSection">
+            <div class="head flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8 lg:mb-16">
+                <h1 class="text-3xl lg:text-5xl font-extrabold text-[#01ab7a]">Inventory</h1>
+                <div
+                    class="dateRange bg-gray-800 border-2 border-gray-600 rounded-lg p-2 flex items-center gap-2 text-white w-full lg:w-auto">
+                    <input type="date" name="startDate" id="startDatePurchase"
+                        class="dateInput text-white bg-transparent border-none outline-none px-2 w-full lg:w-auto">
+                    <span class="text-white text-xl font-bold">-</span>
+                    <input type="date" name="endDate" id="endDatePurchase"
+                        class="dateInput text-white bg-transparent border-none outline-none px-2 w-full lg:w-auto">
+                </div>
+            </div>
+
+            <div class="cont mt-6 lg:mt-8 space-y-6 lg:space-y-8 flex items-center flex-col text-white mx-auto">
+                <div class="summary-box bg-[#2a2e34] p-4 rounded-lg w-full">
+                    <p class="font-bold text-lg lg:text-xl mt-1 lg:mt-3">Total Sales: <span id="totalPurchase"
+                            class="font-normal ml-2">0.00</span></p>
+                </div>
+
+                <h1 class="text-2xl lg:text-3xl font-bold my-6 lg:my-10">Sale Records</h1>
+
+                <div class="table-responsive w-full overflow-x-auto">
+                    <table id="purchaseTable"
+                        class="w-full text-white text-center border-collapse border border-gray-600">
+                        <thead class="bg-[#016346]">
+                            <tr>
+                                <th class="p-2 lg:p-4 font-bold text-base lg:text-xl">Date</th>
+                                <th class="p-2 lg:p-4 font-bold text-base lg:text-xl">Total Purchase</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-600">
+                            <!-- Table rows will be dynamically inserted here by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <h1 class="text-2xl lg:text-3xl font-bold my-6 lg:my-10">Inventory Record</h1>
+
+                <div class="table-responsive w-full overflow-x-auto">
+                    <table id="recordsTable"
+                        class="w-full text-white text-center border-collapse border border-gray-600">
+                        <thead class="bg-[#016346]">
+                            <tr>
+                                <th class="p-2 lg:p-4 font-bold text-base lg:text-xl">Id</th>
+                                <th class="p-2 lg:p-4 font-bold text-base lg:text-xl">Date</th>
+                                <th class="p-2 lg:p-4 font-bold text-base lg:text-xl">Action</th>
+                                <th class="p-2 lg:p-4 font-bold text-base lg:text-xl">Operator</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-600">
+                            <!-- Table rows will be dynamically inserted here by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Operators Modal -->
+        <div id="operatorsModal" class="modal">
+            <div class="modal-content" style="max-height: 80vh; overflow-y: auto;">
+                <div class="modal-header sticky top-0 bg-[#2a2e34] z-10">
+                    <h3 class="modal-title">Operators</h3>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="p-4">
+                    <!-- Add Operator Form -->
+                    <form id="addOperatorForm" class="mb-6">
+                        <div class="form-group">
+                            <label class="form-label">Add New Operator</label>
+                            <div class="grid grid-cols-3 gap-4">
+                                <div>
+                                    <input type="text" id="operatorName" class="form-input" placeholder="Name" required>
+                                </div>
+                                <div>
+                                    <input type="tel" id="operatorMobile" class="form-input" placeholder="Mobile"
+                                        required>
+                                </div>
+                                <div>
+                                    <input type="password" id="operatorPin" class="form-input" placeholder="PIN"
+                                        required>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="form-submit mt-4">Add Operator</button>
+                    </form>
+
+                    <!-- Operators List -->
+                    <div class="operators-list">
+                        <h4 class="text-white font-bold text-lg mb-4">Existing Operators</h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-white text-center border-collapse">
+                                <thead class="bg-[#016346]">
+                                    <tr>
+                                        <th class="p-3">Name</th>
+                                        <th class="p-3">Mobile</th>
+                                        <th class="p-3">PIN</th>
+                                        <th class="p-3">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="operatorsTableBody" class="divide-y divide-gray-600">
+                                    <!-- Admin will be added dynamically -->
+                                    <!-- Other operators will be added here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Expense Section -->
+        <div class="section hidden w-full p-4 lg:p-6 lg:py-4" id="expenseSection">
+            <div class="head flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8 lg:mb-16">
+                <h1 class="text-3xl lg:text-5xl font-extrabold text-[#01ab7a]">Expense</h1>
+                <div
+                    class="dateRange bg-gray-800 border-2 border-gray-600 rounded-lg p-2 flex items-center gap-2 text-white w-full lg:w-auto">
+                    <input type="date" name="startDate" id="startDateExpense"
+                        class="dateInput text-white bg-transparent border-none outline-none px-2 w-full lg:w-auto">
+                    <span class="text-white text-xl font-bold">-</span>
+                    <input type="date" name="endDate" id="endDateExpense"
+                        class="dateInput text-white bg-transparent border-none outline-none px-2 w-full lg:w-auto">
+                </div>
+            </div>
+
+            <div class="cont mt-6 lg:mt-8 space-y-6 lg:space-y-8 flex items-center flex-col text-white mx-auto">
+                <div class="summary-box bg-[#2a2e34] p-4 rounded-lg w-full">
+                    <p class="font-bold text-lg lg:text-xl mt-1 lg:mt-3">Total Expense: <span id="totalExpense"
+                            class="font-normal ml-2">0.00</span></p>
+                </div>
+
+                <div class="table-responsive w-full overflow-x-auto">
+                    <table id="expenseTable"
+                        class="w-full text-white text-center border-collapse border border-gray-600">
+                        <thead class="bg-[#016346]">
+                            <tr>
+                                <th class="p-2 lg:p-4 font-bold text-base lg:text-xl">Date</th>
+                                <th class="p-2 lg:p-4 font-bold text-base lg:text-xl">Purpose</th>
+                                <th class="p-2 lg:p-4 font-bold text-base lg:text-xl">Amount</th>
+                                <th class="p-2 lg:p-4 font-bold text-base lg:text-xl">Operator</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-600">
+                            <!-- Table rows will be dynamically inserted here by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobileMenuButton').addEventListener('click', function () {
+            const sidebar = document.getElementById('mobileSidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('open');
+        });
+
+        document.getElementById('sidebarOverlay').addEventListener('click', function () {
+            const sidebar = document.getElementById('mobileSidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.remove('open');
+            overlay.classList.remove('open');
+        });
+
+        // Section switching functionality
+        document.querySelectorAll('.sideBarLink[data-function]').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const functionName = this.getAttribute('data-function');
+
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.add('hidden');
+                });
+
+                const sectionToShow = document.getElementById(functionName.replace('show', '').replace('Section', '') + 'Section');
+                if (sectionToShow) {
+                    sectionToShow.classList.remove('hidden');
+                }
+
+                if (window.innerWidth < 1024) {
+                    const sidebar = document.getElementById('mobileSidebar');
+                    const overlay = document.getElementById('sidebarOverlay');
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('open');
+                }
+            });
+        });
+
+        // Initialize with Report section visible
+        document.getElementById('reportSection').classList.remove('hidden');
+
+        // Initialize Summary section with default dates when shown
+        document.getElementById('summarySection').addEventListener('DOMNodeInserted', function () {
+            const now = new Date();
+            const offsetInMinutes = 330; // IST offset from UTC in minutes (5.5 hours)
+            const istTime = new Date(now.getTime() + offsetInMinutes * 60000);
+
+            // Format for datetime-local input (YYYY-MM-DDTHH:MM)
+            const formatDateTime = (date) => {
+                return date.toISOString().slice(0, 16);
+            };
+
+            // Set start time to beginning of current day
+            const startDateTime = new Date(istTime);
+            startDateTime.setHours(0, 0, 0, 0);
+
+            document.getElementById('startDateTime').value = formatDateTime(startDateTime);
+            document.getElementById('endDateTime').value = formatDateTime(istTime);
+        });
+        // User menu dropdown toggle
+        document.getElementById('userMenuButton').addEventListener('click', function () {
+            const dropdown = document.getElementById('userMenuDropdown');
+            dropdown.classList.toggle('hidden');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function (event) {
+            const dropdown = document.getElementById('userMenuDropdown');
+            const button = document.getElementById('userMenuButton');
+
+            if (!button.contains(event.target) && !dropdown.contains(event.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const addTableBtn = document.getElementById('addTableBtn');
+            const addTableModal = document.getElementById('addTableModal');
+            const closeModal = document.querySelector('.close-modal');
+            const addTableForm = document.getElementById('addTableForm');
+            const chargingTypeRadios = document.querySelectorAll('input[name="chargingType"]');
+            const hourlyRateGroup = document.getElementById('hourlyRateGroup');
+            const frameRateGroup = document.getElementById('frameRateGroup');
+
+            // Open modal
+            addTableBtn.addEventListener('click', function () {
+                addTableModal.style.display = 'flex';
+            });
+
+            // Close modal
+            closeModal.addEventListener('click', function () {
+                addTableModal.style.display = 'none';
+            });
+
+            // Close modal when clicking outside
+            window.addEventListener('click', function (event) {
+                if (event.target === addTableModal) {
+                    addTableModal.style.display = 'none';
+                }
+            });
+
+            // Toggle player-based pricing section
+            const enablePlayerPricing = document.getElementById('enablePlayerPricing');
+            const playerPricingSection = document.getElementById('playerPricingSection');
+
+            enablePlayerPricing.addEventListener('change', function () {
+                if (this.checked) {
+                    playerPricingSection.classList.remove('hidden');
+                    // Add required attributes if needed
+                    document.getElementById('rate3Hourly').setAttribute('required', '');
+                    document.getElementById('rate4Hourly').setAttribute('required', '');
+                } else {
+                    playerPricingSection.classList.add('hidden');
+                    // Remove required attributes
+                    document.getElementById('rate3Hourly').removeAttribute('required');
+                    document.getElementById('rate4Hourly').removeAttribute('required');
+                }
+            });
+
+            // Form submission
+            addTableForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // Get basic table info
+                const tableName = document.getElementById('tableName').value;
+                const tableType = document.getElementById('tableType').value;
+
+                // Get base pricing
+                const pricing = {
+                    base: {
+                        hourly: document.getElementById('baseHourlyRate').value,
+                        frame: document.getElementById('baseFrameRate').value,
+                        min: document.getElementById('baseMinCharge').value
+                    }
+                };
+
+                // Get additional player pricing if enabled
+                if (enablePlayerPricing.checked) {
+                    pricing.players3 = {
+                        hourly: document.getElementById('rate3Hourly').value,
+                        frame: document.getElementById('rate3Frame').value,
+                        min: document.getElementById('rate3Min').value
+                    };
+                    pricing.players4 = {
+                        hourly: document.getElementById('rate4Hourly').value,
+                        frame: document.getElementById('rate4Frame').value,
+                        min: document.getElementById('rate4Min').value
+                    };
+                }
+
+                // Prepare data for API
+                const tableData = {
+                    name: tableName,
+                    type: tableType,
+                    pricing,
+                    hasPlayerBasedPricing: enablePlayerPricing.checked
+                };
+
+                console.log('Table data:', tableData);
+                alert('Table added successfully!');
+
+                addTableForm.reset();
+                addTableModal.style.display = 'none';
+            });
+        });
+    </script>
+
+    <script>
+        // API call to add a new operator
+        const addOperator = async (operatorData) => {
+            try {
+                swal.fire({
+                    title: "Adding Operator",
+                    text: "Please wait",
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    },
+                });
+
+                const response = await fetch("/operators/addOperator", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(operatorData),
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: errorData.msg || "Failed to add operator.",
+                    });
+                    // throw new Error(errorData.msg || "Failed to add operator.");
+                }
+
+                swal.fire({
+                    icon: "success",
+                    title: "Success",
+                    text: "Operator added successfully!",
+                });
+
+                return true;
+            } catch (error) {
+                console.error("Error adding operator:", error);
+                swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Failed to add operator: " + error.message,
+                });
+                return false;
+            }
+        };
+        
+        // API call to remove an operator
+        const removeOperator = async (operatorId) => {
+            try {
+                const response = await fetch(`/operators/removeOperator/${operatorId}`, {
+                    method: "DELETE",
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.msg || "Failed to remove operator.");
+                }
+
+                return true;
+            } catch (error) {
+                console.error("Error removing operator:", error);
+                alert("Failed to remove operator: " + error.message);
+                return false;
+            }
+        };
+
+        // Open modal on menu click
+        document.querySelector('#userMenuDropdown a:first-child').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('operatorsModal').style.display = 'flex';
+        });
+
+        // Close modal on close button click
+        document.querySelectorAll('.close-modal').forEach((btn) => {
+            btn.addEventListener('click', function () {
+                this.closest('.modal').style.display = 'none';
+            });
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (event) => {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        });
+
+        // Add operator form submission
+        document.getElementById('addOperatorForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('operatorName').value.trim();
+            const mobile = document.getElementById('operatorMobile').value.trim();
+            const pin = document.getElementById('operatorPin').value.trim();
+
+            if (!name || !mobile || !pin) {
+                alert("All fields are required.");
+                return;
+            }
+
+            const operatorData = { operatorName: name, mobile, pin };
+            const success = await addOperator(operatorData);
+            if (!success) return;
+
+            const operatorsTable = document.getElementById('operatorsTableBody');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+            <td class="p-3">${name}</td>
+            <td class="p-3">${mobile}</td>
+            <td class="p-3">${pin}</td>
+            <td class="p-3">
+                <button class="text-red-500 hover:text-red-400">Remove</button>
+            </td>
+        `;
+            operatorsTable.appendChild(newRow);
+
+            this.reset();
+            alert("Operator added successfully!");
+        });
+
+        // Remove operator using event delegation
+        document.getElementById('operatorsTableBody').addEventListener('click', async (e) => {
+            if (e.target.textContent === 'Remove') {
+                if (confirm('Are you sure you want to remove this operator?')) {
+                    const row = e.target.closest('tr');
+                    const name = row.cells[0].textContent;
+
+                    // Optional: if operator ID is known, pass it here
+                    // const operatorId = ...;
+
+                    // Call API here if operatorId is available
+                    // const success = await removeOperator(operatorId);
+                    // if (!success) return;
+
+                    console.log('Removing operator:', name);
+                    row.remove();
+                }
+            }
+        });
+    </script>
+
+
+    <script src="dashb.js"></script>
+</body>
+
+</html>

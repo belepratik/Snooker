@@ -1,0 +1,22 @@
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+header {
+    background-color: #33363B;
+    padding: 10px;
+    text-align: center;
+}
+
+.card {
+    border-radius: 8px;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+input[readonly] {
+    background-color: #e9ecef;
+    color: #495057;
+    cursor: not-allowed;
+}

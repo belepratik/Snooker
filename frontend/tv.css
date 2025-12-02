@@ -1,0 +1,327 @@
+/* General Styling */
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background-color: #22252B; /* Dark background */
+    margin: 0;
+    padding: 0;
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+    padding: 0 30px 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Header (Club Logo + Name) */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-bottom: 2px solid #01AB7A;
+}
+
+/* Club Logo and Name */
+.club-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.club-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    /* border-radius: 50%; */
+    /* background-color: white; */
+    /* padding: 5px; */
+}
+
+.club-name {
+    font-size: 24px;
+    font-weight: 600;
+    color: #01AB7A; /* Brand color */
+    margin: 0;
+}
+
+/* Current Time Display */
+.current-time {
+    font-size: 22px;
+    font-weight: 500;
+    color: #ffffff;
+    background-color: rgba(1, 171, 122, 0.2);
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1px solid #01AB7A;
+}
+
+/* Tables Heading */
+.tables-heading {
+    color: #01AB7A;
+    font-size: 28px;
+    margin: 30px 0 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.tables-heading::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: #01AB7A;
+    border-radius: 3px;
+}
+
+/* Table Container */
+.table-grid {
+    /* display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+/* Table Card */
+.table-card {
+    border-radius: 15px;
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 25px 20px;
+    border: 2px solid;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    min-height: 180px;
+}
+
+/* Hide Table ID but keep for reference */
+.table-id {
+    display: none;
+}
+
+/* Status Colors */
+.available {
+    background: linear-gradient(135deg, #017A57, #01AB7A);
+    border-color: #01C88E;
+    color: white;
+}
+
+.occupied {
+    background: linear-gradient(135deg, #B34030, #FF5733);
+    border-color: #FF7857;
+    color: white;
+}
+
+/* Hover Effect */
+.table-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* Table Name */
+.table-name {
+    font-size: 26px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+/* Table Status */
+.table-status {
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 5px 15px;
+    border-radius: 20px;
+    margin: 5px 0;
+}
+
+/* Players */
+.players {
+    font-size: 15px;
+    font-weight: 500;
+    margin: 10px 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 10px;
+}
+
+/* Start Time */
+.start-time {
+    font-size: 15px;
+    font-weight: 500;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 5px 10px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 10px;
+}
+
+/* Snooker+ Branding */
+.branding {
+    padding: 20px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin-top: auto;
+}
+
+.powered-by {
+    font-size: 14px;
+    font-weight: 500;
+    color: #AAA;
+    margin-bottom: 5px;
+}
+
+.snooker-logo {
+    width: 120px;
+    height: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    .club-name {
+        font-size: 20px;
+    }
+    
+    .table-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+    }
+    
+    .table-name {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px 15px;
+    }
+    
+    .table-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .club-logo {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+
+.overlay-content {
+    position: fixed; /* Change from absolute to fixed */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #FFFFFF;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 400px; /* Limit maximum width for better readability */
+  }
+  
+  #offForm label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Align items to the left and right */
+    margin-bottom: 15px;
+    color: #333333; /* Dark text color for labels */
+  }
+  
+  #offForm input[type="text"],
+  #offForm input[type="number"] {
+    width: calc(100% - 30px); /* Adjust width and padding */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #CCCCCC; /* Light border color */
+    border-radius: 5px;
+    box-sizing: border-box; /* Include padding and border in width calculation */
+  }
+  
+  .plus-button {
+      display: inline-block;
+      width: 24px; /* Adjust width as needed */
+      height: 24px; /* Adjust height as needed */
+      background-color: #28A745; /* Green background color */
+      color: #FFFFFF; /* White text color */
+      border: none;
+      border-radius: 50%; /* Make it circular */
+      cursor: pointer;
+      font-size: 16px; /* Adjust font size as needed */
+      line-height: 24px; /* Adjust line height to center the text vertically */
+      text-align: center;
+      flex-shrink: 0; /* Prevent the button from shrinking */
+  }
+  
+  
+  #offForm input[type="submit"],
+  #offForm button {
+    display: inline-block;
+    width: 100%; /* Full width buttons */
+    padding: 12px;
+    margin-top: 10px;
+    color: #FFFFFF;
+    background-color: #DC3545; /* Red button color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #offForm button[type="button"] {
+    background-color: transparent;
+    border: 1px solid #DC3545; /* Red border color for cancel button */
+    color: #DC3545; /* Red text color for cancel button */
+  }
+  
+  /* Hover effect for buttons */
+  #offForm input[type="submit"]:hover,
+  #offForm button:hover {
+    background-color: #b30015; /* Darker shade of red for hover effect */
+  }
+  
+  /* Adjustments for mobile screens */
+  @media (max-width: 768px) {
+    .overlay-content {
+      padding: 20px;
+    }
+  
+    #offForm input[type="text"] {
+      width: 100%; 
+      margin-top: 10px;
+    }
+  }
+  
+  .submit-button {
+    background-color: #b30015 !important; /* Green background color */
+    color: #FFFFFF !important; /* White text color */
+  }

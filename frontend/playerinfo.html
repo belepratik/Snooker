@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="playerinfo.css">
+    <link rel="icon" href="https://github.com/AnkitBele21/centurydewas/blob/updateframedata/photo/Thumbnail.jpg?raw=true" type="image/x-icon"> 
+    <title>Player Info</title>
+</head>
+<body class="bg-dark text-white">
+    <header class="p-3 text-center">
+        <img src="https://img1.wsimg.com/isteam/ip/9e11a5db-9940-4d56-b773-7f8426617dc8/Frame%2012995%20(1).png/:/cr=t:0%25,l:0%25,w:100%25,h:100%25" alt="Snooker Plus Logo" width="180px">
+    </header>
+    <div class="container mt-5">
+        <div class="card bg-secondary p-4">
+            <h2 class="mb-4">Sign In</h2>
+            <p>
+                Get your Pin 
+                <a href="https://wa.me/919109192133?text=My%20Pin%3F" target="_blank" class="btn btn-warning btn-sm ms-2">Click Here</a> 
+                and explore your journey with us.
+              </p>
+              
+            <form id="playerInfoForm" action="/login/player_login" method="post">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="club" class="form-label">Club Name:</label>
+                    <input type="text" class="form-control" id="club" name="club" readonly>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="pin" class="form-label">Pin:</label>
+                    <input type="password" class="form-control" id="pin" name="pin" required>
+                </div>
+                <button type="submit" class="btn btn-success w-100">Sign In</button>
+            </form>
+        </div>
+    </div>
+    <script src="playerinfo.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://stackpath.bootstrapcdn.com https://cdn.jsdelivr.net 'unsafe-inline';">
+    <link rel="stylesheet" href="clubframes.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Favicon -->
+    <link rel="icon" href="https://github.com/AnkitBele21/centurydewas/blob/updateframedata/photo/Thumbnail.jpg?raw=true" type="image/x-icon"> 
+    <title>Club Frames</title>
+</head>
+<body>
+    <header class="d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+            <img id="clubLogo" src="" alt="SnookerPlus Logo">
+            <h2 id="heading"></h2>
+            <h1>Club Frames</h1>
+        </div>
+        <button id="PlayersButton" class="btn btn-primary">Players</button>
+
+        <!-- Replace <SECURITY_VALUE> and <STUDIO_VALUE> with the actual values -->
+    </header>
+    <section id="filters" class="card">
+        <input type="text" id="playerNameFilter" list="playerNames" placeholder="Filter by player name">
+        <datalist id="playerNames">
+            <!-- Player names will be dynamically added here via JavaScript -->
+        </datalist>
+        <input type="date" id="dateFilter">
+        <button onclick="applyFilters(true)">Apply Filters</button>
+        <div id="activeFramesContainer" class="ml-auto">
+            <label for="activeFramesFilter">Active Frames:</label>
+            <input type="checkbox" id="activeFramesFilter" onchange="applyFilters(false)">
+        </div>
+    </section>
+    <button id="frameOnButton" class="btn btn-success" onclick="markFrameOn()">Frame On</button>
+    <section id="frameEntries">
+        <!-- Frame entries will be dynamically added here via JavaScript -->
+    </section>
+
+    <div id="offFormOverlay" class="overlay" style="display: none;">
+        <div class="overlay-content">
+            <form id="offForm">
+                <h3 style="color: black;">Select The Losing Player (LP)</h3>
+
+                <!-- Player buttons will be appended here dynamically -->
+                <div id="playerButtonsContainer"></div>
+
+                <input type="text" id="paymentDetails" placeholder="Frames Lost by each player" readonly />
+
+                <input type="number" id="bet" name="bet" placeholder="Enter Bet Amount" />
+ 
+                
+
+                <div class="offButtons">
+                    <input type="submit" id="offMatch" value="Off Match" />
+                    <input type="submit" id="rematch"  value="Rematch" />  
+                </div>
+
+                <button type="button" id="cancelOffForm">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="load">
+        <button id="loadButton" value=10>Load More</button>
+    </div>
+    
+    <!-- Bootstrap Bundle JS (includes Popper) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+    <script src="loader.js" defer></script>
+    <!-- <script src="clubframes.js" defer></script> -->
+    <script src="clubframes.js" defer></script>
+</body>
+</html>

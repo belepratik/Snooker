@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Snooker+ Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="https://github.com/AnkitBele21/centurydewas/blob/updateframedata/photo/Thumbnail.jpg?raw=true" type="image/x-icon">
+  <style>
+    :root {
+      --primary: #01AB7A;
+      --background: #1a1d22;
+      --surface: #2c2f36;
+      --text-primary: #ffffff;
+      --text-secondary: #cccccc;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--background);
+      color: var(--text-primary);
+    }
+
+    header {
+      background-color: var(--surface);
+      padding: 1rem 2rem;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    section {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    h2 {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 0.5rem;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .product-card {
+      background-color: var(--surface);
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-card img {
+      width: 100%;
+      max-height: 140px;
+      object-fit: cover;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      background: #111;
+    }
+
+    .product-card h3 {
+      margin: 0.5rem 0;
+      font-size: 1.1rem;
+    }
+
+    .product-card p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .product-card button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .product-card button:hover {
+      background-color: #018a63;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    @media (max-width: 480px) {
+      header {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>Snooker+ Store</header>
+
+  <section>
+    <h2>Currently Available</h2>
+    <div class="product-grid">
+
+      <!-- Chalk -->
+      <div class="product-card">
+        <img src="https://github.com/AnkitBele21/centurydewas/blob/main/photo/chalk.jpg?raw=true" alt="Snooker+ Chalk">
+        <h3>Snooker+ Chalk</h3>
+        <p>₹200 / piece</p>
+        <button>Enquire</button>
+      </div>
+
+      <!-- Gloves -->
+      <div class="product-card">
+        <img src="https://github.com/AnkitBele21/centurydewas/blob/main/photo/gloves.jpg?raw=true" alt="Snooker+ Gloves">
+        <h3>Snooker+ Gloves</h3>
+        <p>₹100 / piece</p>
+        <button>Enquire</button>
+      </div>
+
+      <!-- Cue -->
+      <div class="product-card">
+        <img src="https://github.com/AnkitBele21/centurydewas/blob/main/photo/cue.jpeg?raw=true" alt="Snooker+ Cue">
+        <h3>Snooker+ Personal Cue</h3>
+        <p>₹3,000</p>
+        <button>Enquire</button>
+      </div>
+
+      <!-- Cue Cover -->
+      <div class="product-card">
+        <img src="https://github.com/AnkitBele21/centurydewas/blob/main/photo/cover.jpg?raw=true" alt="Snooker+ Cue Cover">
+        <h3>Snooker+ Cue Cover</h3>
+        <p>₹500</p>
+        <button>Enquire</button>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>More Coming Soon</h2>
+    <p style="color: var(--text-secondary); font-size: 0.95rem;">
+      We'll soon be adding more under the Snooker+ Store.
+    </p>
+  </section>
+
+  <footer>
+    © 2025 Snooker+ Store • All rights reserved
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TopUp Records</title>
+    <link rel="stylesheet" href="clubHistory.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+
+<body>
+
+    <div id="success" style="display: none;">
+        <h2 id="heading"></h2>
+        <section class="filter">
+            <h1 style="color:  #01ab7a ; font-size: 25px;">Filter</h1>
+            <div class="filterContainer">
+                <div class="filterDiv">
+                    <label>Player Name</label>
+                    <input type="text" class="filterInput" name="nameFilter" id="nameFilter"
+                        placeholder="Filter By PlayerName">
+                </div>
+                <div class="filterDiv">
+                    <label>Operator Name</label>
+                    <input type="text" class="filterInput" name="opNameFilter" id="opNameFilter"
+                        placeholder="Filter By PlayerName">
+                </div>
+                <div class="filterDiv">
+                    <label for="dateFilter">Start Time</label>
+                    <input type="datetime-local" class="otherFilterInput" name="dateFilter" id="startDateFilter">
+
+                </div>
+                <div class="filterDiv">
+                    <label for="dateFilter">End Time </label>
+                    <input type="datetime-local" class="otherFilterInput" name="dateFilter" id="endDateFilter">
+                </div>
+                <div class="filterDiv " id="modeDiv">
+                    <label for="modeSelect">Mode </label>
+                    <select name="mode" id="modeSelect" class="otherFilterInput">
+                        <option value="" selected disabled>Select Mode</option>
+                        <option value="Cash">Cash</option>
+                        <option value="online">Online</option>
+                    </select>
+                </div>
+            </div>
+
+            <button id="applyBtn" onclick=applyFilter(true)>Apply Filters</button>
+
+        </section>
+
+
+        <div id="actionBtns">
+            <button class="addInventory" id="addInventory">Add Item</button>
+            <button class="addExpense" id="addExpense">Add Expense</button>
+        </div>
+
+        <div class="tableContainer">
+            <div class="stocks">
+                <div class="stockTableContainer">
+                    <table id="stocksTable">
+                        <thead>
+                            <tr>
+                                <th>SNo.</th>
+                                <th>Item Name</th>
+                                <th>Price</th>
+                                <th>Stocks Available</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stocksTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="topupPurchase">
+
+                <table id="Table">
+                    <thead>
+                        <tr>
+                            <th>Record ID</th>
+                            <th>Record Date</th>
+                            <th>User Name</th>
+                            <th id="mode/item"></th>
+                            <th>Operator</th>
+                            <th id="BATM" style="display: none;"> BATM</th>
+                            <th> Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="topupPurchaseTableBody">
+                        <!-- Data will be dynamically inserted here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="adjustment">
+
+                <table id="table">
+                    <thead>
+                        <tr>
+                            <th>RecordID</th>
+                            <th>Date</th>
+                            <th>Winner</th>
+                            <th>Looser</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adjustmentTableBody">
+                        <!-- dynamically generated rows  -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="load">
+            <button id="loadButton" value=12>Load More</button>
+        </div>
+    </div>
+
+    <div id="failure" style="display: none;">
+        <img src="./public/image.png" alt="access denied" class="img">
+        <h1 class="Access">Access Denied</h1>
+        <p class="sum">The security key is incorrect. Please check and try again.</p>
+    </div>
+
+    <script src="clubHistory.js"></script>
+
+</body>
+
+</html>
