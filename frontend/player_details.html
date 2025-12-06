@@ -92,28 +92,46 @@
     </style>
 </head>
 <body>
-    <header class="text-center py-3">
+    <header class="d-flex justify-content-between align-items-center py-3 px-3" style="max-width: 540px; margin: 0 auto;">
         <img src="https://github.com/AnkitBele21/centurydewas/blob/main/photo/logo%20(1).png?raw=true" alt="Logo" id="logo" class="img-fluid">
+        <button id="notificationBtn" class="btn btn-link p-0" style="font-size: 1.8rem; color: #FFD700;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 24 24"><path d="M12 24c1.104 0 2-.896 2-2h-4c0 1.104.896 2 2 2zm6.364-6c-.781-1.104-2.364-2-6.364-2s-5.583.896-6.364 2c-.781 1.104-.636 2 .364 2h12c1 0 1.145-.896.364-2zm-6.364-16c-4.418 0-8 3.582-8 8v5l-2 2v1h20v-1l-2-2v-5c0-4.418-3.582-8-8-8z"/></svg>
+        </button>
     </header>
     
     <div class="alert alert-danger text-center" id="warning" style="display: none;">Warning: Your balance is above 2000. Please clear dues ASAP!</div>
     
-    <div id="playerCard" class="card mb-3 mx-auto" style="max-width: 540px;">
-        <div class="card-body" id="playerInfo">
-            <h2 id="playerName" class="card-title">---</h2>
-            <p id="playerRank" class="card-text">Rank: -</p>
-            <p id="winRate" class="card-text">Win Rate: -%</p>
-            <p id="totalMoney" class="card-text balance positive">Balance: --</p>
-            <div class="nfcLockToggle">
-                <span id="nfcLockText">NFC Lock</span>
-                <label class="toggle-switch">
-                    <input type="checkbox" class="toggle-input" id="nfcLockToggle">
-                    <span class="toggle-slider"></span>
-                </label>
+        <div id="playerCard" class="player-card-modern mx-auto player-level-color">
+            <div class="player-card-content">
+                <div class="player-card-row player-card-header">
+                    <h2 id="playerName" class="player-card-title">---</h2>
+                    <div id="ggReceived" class="gg-received-box" title="GGs Received">
+                        <span class="gg-icon">👍</span>
+                        <span id="ggCount">0</span>
+                    </div>
+                </div>
+                <div class="player-progress-bar-row">
+                    <div id="playerLevelName" class="player-progress-label">Level: --</div>
+                    <div class="player-progress-bar-bg">
+                        <div id="playerProgressBar" class="player-progress-bar-fill" style="width:0%"></div>
+                    </div>
+                </div>
+                <div class="player-card-row player-card-meta">
+                    <span id="playerRank">Rank: -</span>
+                    <span id="winRate">Win Rate: -%</span>
+                </div>
+                <div class="player-card-row player-card-balance">
+                    <span id="totalMoney" class="balance positive">Balance: --</span>
+                </div>
+                <div class="player-card-row player-card-nfc">
+                    <span id="nfcLockText">NFC Lock</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" class="toggle-input" id="nfcLockToggle">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
             </div>
-
         </div>
-    </div>
     
     <!-- Action Buttons moved here -->
     <div class="action-buttons d-flex gap-2">
@@ -124,6 +142,7 @@
     <div id="framesContainer" class="mx-auto">
         <div class="frames-header">Recent Frames</div>
         <div id="framesInfo"></div>
+        <button id="loadMoreFramesBtn" class="load-more-btn" style="display:none;">Load More</button>
     </div>
 
     <!-- Transactions Modal -->

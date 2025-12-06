@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-const {studioData,playerData ,framesData,frameData, leaderboardData,tvData } = require("../controllers/dataCont");
+const { studioData, playerData, framesData, frameData, leaderboardData, tvData, clubInfo } = require("../controllers/dataCont");
+// Club info endpoint
+router.get("/clubinfo", clubInfo);
 
 router.get("/data/tv",tvData)
 router.get("/playerData/:table/:player",playerData);

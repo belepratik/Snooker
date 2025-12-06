@@ -1,357 +1,385 @@
-/* General container styling */
+.play-button.grey {
+    background: #444;
+    cursor: default;
+    pointer-events: none;
+}
+/* GG badge for leaderboard card */
+.gg-badge {
+    background: #222;
+    color: #ffd700;
+    font-weight: 700;
+    border-radius: 8px;
+    padding: 3px 10px;
+    font-size: 0.95rem;
+    margin-left: 0;
+    margin-right: 8px;
+    display: inline-flex;
+    align-items: center;
+    min-width: 60px;
+    justify-content: center;
+}
+
+/* Main flex row for leaderboard card */
+.player-card-main-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.2rem;
+    margin-bottom: 0.2rem;
+}
+.player-card-main-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+}
+.player-card-main-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+.play-button {
+    background: #00cc70;
+    padding: 6px 9px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0;
+    margin-right: 0;
+    transition: background 0.18s;
+}
+.play-button:hover {
+    background: #00e686;
+}
+/* ---------------------------------------
+   GLOBAL THEME
+------------------------------------------*/
 body {
-    background-color: #22252B;
-    color: #FFFFFF;
     font-family: 'Roboto', sans-serif;
+    background-color: #0d0d0d;
+    color: #ffffff;
     margin: 0;
     padding: 0;
 }
+html { scroll-behavior: smooth; }
 
-header {
-    background-color: #33363B;
-    padding: 0;
-}
-
+/* ---------------------------------------
+   HEADER
+------------------------------------------*/
 header img {
+    max-width: 260px;
+    filter: drop-shadow(0 3px 4px rgba(0,0,0,0.25));
+}
+
+
+/* ---------------------------------------
+   MODERN CENTERED SEARCH BAR
+------------------------------------------*/
+.searchbar-outer {
     width: 100%;
-    height: auto;
-    object-fit: cover;
-    display: block;
-}
-
-main {
-    padding: 20px;
-}
-
-/* Toolbar */
-.toolbar {
+    min-height: 80px;
     display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 20px;
-    padding: 12px 8px;
+    align-items: center;
+    justify-content: center;
+    max-width: 100vw;
+    margin: 0 auto 18px auto;
     position: sticky;
     top: 0;
-    z-index: 1000;
-    background-color: #22252B;
-    border-bottom: 1px solid #444;
+    z-index: 100;
+    background: #0d0d0d;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.18);
+}
+.search-bar {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    background: #161616;
+    border-radius: 30px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10), inset 0 0 0 2px #333;
+    padding: 0;
+}
+.search-bar input {
+    width: 100%;
+    height: 48px;
+    padding-left: 54px;
+    background: transparent;
+    border-radius: 30px !important;
+    font-size: 1.08rem;
+    color: white;
+    margin: 0 auto;
+    display: block;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+}
+.search-bar input:focus {
+    box-shadow: 0 4px 16px rgba(0,204,112,0.12), 0 0 0 2px #00cc70;
+}
+.search-icon-inside {
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    top: 50%;
+    left: 18px;
+    transform: translateY(-50%);
+    filter: invert(1);
+    opacity: 0.8;
+    pointer-events: none;
 }
 
-/* Filters section */
-.filters {
+/* ---------------------------------------
+   FILTER ROW
+------------------------------------------*/
+.filter-row {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
     align-items: center;
     gap: 12px;
-    padding: 10px 0;
-    width: 100%;
+    margin-top: 12px;
 }
 
-.filters .form-check,
-.filters .form-select {
-    flex: 1 1 auto;
-    min-width: 120px;
-    max-width: 100%;
-}
-
-/* Mobile-specific tweaks */
-@media (max-width: 500px) {
-    .filters {
-        justify-content: space-between;
-    }
-
-    .filters .form-check,
-    .filters .form-select {
-        flex: 1 1 48%;
-    }
-}
-
-#studioName {
-    padding: 6px 12px;
-    border-radius: 8px;
-    font-size: 14px;
-    background-color: #33363B;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    width: auto;
-    max-width: 200px;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-
-
-#studioName.clicked {
-    background-color: #01AB7A;
-}
-
-/* Buttons */
-.button-container {
-    display: flex;
-    gap: 15px;
-    width: 100%;
-    justify-content: space-between;
-    margin-top: 15px;
-}
-
-button {
-    padding: 10px 20px;
-    font-size: 14px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    background-color: #33363B;
-    color: #fff;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-button:hover {
-    background-color: #01AB7A;
-    transform: scale(1.05);
-}
-
-button.btn-primary {
-    background-color: #01AB7A;
-    color: white;
-}
-
-button.btn-outline-primary {
-    background-color: transparent;
-    border: 1px solid #01AB7A;
-    color: #01AB7A;
-}
-
-/* Snooker+ Champions Button */
-.snooker-champions {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-button#championsButton {
-    padding: 10px 20px;
-    font-size: 14px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    background-color: #33363B;
-    color: #fff;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-button#championsButton:hover {
-    background-color: #01AB7A;
-    transform: scale(1.05);
-}
-
-button#championsButton[data-active="true"] {
-    background-color: #01AB7A;
-    color: white;
-}
-
-button#championsButton[data-active="false"] {
-    background-color: transparent;
-    border: 1px solid #01AB7A;
-    color: #01AB7A;
-}
-
-/* Search bar */
-.search {
+.active-wrapper {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-top: 15px;
-    width: 100%;
+    gap: 6px;
+    background: #1a1a1a;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid #333;
 }
 
-.search-icon {
-    display: none;
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-}
-
-#searchInput {
-    padding: 6px 10px;
-    border-radius: 8px;
-    font-size: 14px;
+.studio-dropdown {
     flex: 1;
-    width: 80%;
+    height: 48px;
+    border-radius: 12px !important;
+    background: #1a1a1a;
+    color: white;
+    border: 1px solid #333;
+    padding-left: 12px;
 }
 
-.search input {
-    font-size: 14px;
-    width: 300px;
+/* ---------------------------------------
+   CHAMPIONS BUTTON
+------------------------------------------*/
+.champions-btn {
+    border: 2px solid #00cc70 !important;
+    border-radius: 25px !important;
+    color: #00cc70 !important;
+    font-weight: 700;
+    padding: 10px 0;
+    font-size: 1rem;
+    transition: 0.2s ease;
+}
+.champions-btn:hover {
+    background: #00cc70 !important;
+    color: #000 !important;
+}
+.champions-btn.btn-primary {
+    background: #00cc70 !important;
+    color: #000 !important;
 }
 
-/* Player Cards */
+/* ---------------------------------------
+   PLAYER CARDS
+------------------------------------------*/
+#playerContainer {
+    display: grid;
+    gap: 1rem;
+}
+
 .player-card {
-    background-color: #33363B;
-    margin-bottom: 15px;
-    padding: 15px;
-    border-radius: 8px;
-    transition: transform 0.2s, box-shadow 0.3s;
-    position: relative;
-}
-
-.player-card:hover {
-    transform: scale(1.02);
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.player-name {
-    font-weight: 600;
-    line-height: 1.2em;
-    display: block;
-}
-
-.play-button {
-    margin-left: auto;
-    margin-right: 10px;
-    align-self: center;
-    padding-left: 10px;
-    cursor: pointer;
-}
-
-.play-button:hover {
-    transform: scale(1.5);
+    background: #121212 !important;
+    color: #fff !important;
+    padding: 15px 16px;
+    border-radius: 14px !important;
+    border: none !important;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.45);
 }
 
 .player-info {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
+}
+
+.player-name {
+    font-weight: bold;
+    font-size: 1.05rem;
+    cursor: pointer;
+}
+
+.player-name .club-name {
+    color: #ccc;
+    font-size: 0.8rem;
+}
+
+.player-coins {
+    background: #00cc70;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #000;
+}
+
+.play-button {
+    background: #00cc70;
+    padding: 6px 9px;
+    border-radius: 50%;
+}
+
+.playing-at-club {
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    font-size: 0.75rem;
+    color: inherit;
+}
+
+.playing-at-club-border {
+    border: 2.5px solid #00cc70 !important;
+}
+
+.black-level-card {
+    background: #000 !important;
+    border: 1px solid gold !important;
 }
 
 .progress-bar {
-    height: 12px;
-    background-color: #444;
+    margin-top: 10px;
+    background: #333;
+    height: 8px;
     border-radius: 6px;
     overflow: hidden;
-    margin-bottom: 5px;
-    position: relative;
 }
 
 .progress-bar-inner {
     height: 100%;
-    background-color: #01AB7A;
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 6px;
-    transition: width 0.3s ease;
-    min-width: 10%;
+    width: 0%;
+    transition: width 0.4s ease-in-out;
 }
 
-.player-winrate {
-    font-size: 14px;
-    color: #FFEB3B;
-    display: block;
-}
-
-.champion-icon {
-    margin-left: 5px;
-    font-size: 1.5em;
-}
-
-.banner-section {
-    background-color: #01AB7A;
-    padding: 8px 0;
+/* ---------------------------------------
+   LOADING
+------------------------------------------*/
+.loading-container {
     text-align: center;
+    padding: 30px 10px;
+}
+.spinner-border {
+    width: 50px;
+    height: 50px;
 }
 
-.banner-text {
-    color: white;
-    font-size: 18px;
-    font-weight: 500;
-    margin: 0;
+/* ---------------------------------------
+   PROMO BANNER & NEWS TICKER
+------------------------------------------*/
+.promo-banner {
+    width: 100%;
+    background: linear-gradient(90deg, #01ab7a 0%, #028762 100%);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.08rem;
+    padding: 0 0 6px 0;
+    text-align: center;
+    margin-bottom: 0;
+    border-bottom: 2px solid #00cc70;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    letter-spacing: 0.5px;
+    z-index: 101;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.promo-banner-img-wrap {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 0.5rem auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.promo-banner-img {
+    width: 100%;
+    max-width: 900px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+.promo-banner-ticker {
+    width: 100%;
+    background: linear-gradient(90deg, #01ab7a 0%, #028762 100%);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.08rem;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 2px solid #00cc70;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    letter-spacing: 0.5px;
+    z-index: 101;
+    margin-bottom: 0.5rem;
+}
+.news-ticker {
+    width: 100%;
+    font-size: 1.08rem;
+    color: #fff;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
-.black-level-card {
-    background-color: #000;
-    border: 2px solid gold;
-    color: gold;
+/* ---------------------------------------
+   CLUB BANNER IMAGE
+------------------------------------------*/
+.club-banner-img-wrap {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 1.2rem auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
-.black-level-card .player-name,
-.black-level-card .player-coins {
-    color: gold;
+.club-banner-img {
+    width: 100%;
+    max-width: 900px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
 }
-
-.top-eight {
-    border: 2px solid gold;
-    background-color: rgba(255, 215, 0, 0.1);
-}
-
-.playing-at-club {
-    font-size: 10px;
-    color: #4CAF50;
-    display: block;
-    margin-top: 5px;
-}
-
-.player-coins {
-    margin-top: 10px;
-}
-
-.player-card.playing-at-club-border {
-    border: 2px solid #4CAF50;
-}
-
-.player-card.playing-at-club-border .progress-bar {
-    border: 2px solid #4CAF50;
-}
-
-.studio-name {
-    font-size: 12px;
-    color: #888;
-    margin-left: 5px;
-}
-
-.club-name {
-    display: block;
-    font-size: 0.85em;
-    color: #777;
-    font-weight: 400;
-    margin-top: 2px;
-}
-
-/* Responsive Adjustments */
-@media only screen and (max-width: 600px) {
-    .search-icon {
-        display: block;
+@media (max-width: 600px) {
+    header img { max-width: 200px; }
+    .player-card { padding: 12px; }
+    .player-name { font-size: 1rem; }
+    .player-coins { font-size: 0.75rem; }
+    .progress-bar { height: 6px; }
+    .promo-banner {
+        font-size: 0.95rem;
+        padding: 0 0 4px 0;
     }
-
-    #searchInput {
-        width: 100%;
+    .promo-banner-img {
+        height: 120px;
+        max-width: 100vw;
+        border-radius: 8px;
     }
-
-    .filters {
-        flex-direction: column;
+    .promo-banner-ticker {
+        font-size: 0.95rem;
+        min-height: 36px;
     }
-
-    .filters > * {
-        width: 100%;
-        margin-bottom: 10px;
+    .news-ticker {
+        font-size: 0.95rem;
     }
-
-    .snooker-champions {
-        width: 100%;
-        margin-top: 10px;
-    }
-
-    .toolbar {
-        margin-bottom: 20px;
-    }
-
-    .search {
-        width: 100%;
-        margin-bottom: 15px;
+    .club-banner-img {
+        height: 120px;
+        max-width: 100vw;
+        border-radius: 8px;
     }
 }

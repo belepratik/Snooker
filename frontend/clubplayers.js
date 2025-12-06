@@ -42,7 +42,7 @@ async function fetchPlayerData(studio) {
       playerData = data;
       console.log(playerData);
 
-      const rows = data[0];
+      const rows = data;
       // console.log('rows', rows)
       const tableBody = document
         .getElementById("playersTable")
@@ -645,7 +645,7 @@ async function fetchData(table, Studio) {
   console.log(url);
   const response = await fetch(url);
   const data = await response.json();
-  return data[0];
+  return data;
 }
 
 function topupModal(playerId, Studio) {

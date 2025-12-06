@@ -1,0 +1,270 @@
+================================================================================
+                    SNOOKER APP - STARTUP GUIDE
+================================================================================
+
+This guide will help you start MySQL and the Node.js application every time.
+Follow these steps in order.
+
+================================================================================
+PART 1: START MYSQL DATABASE
+================================================================================
+
+Step 1: Open Terminal (Ctrl + `)
+Step 2: Run this command to start MySQL:
+
+    sudo service mysql start
+
+Step 3: Verify MySQL is running by checking status:
+
+    sudo service mysql status
+
+Expected output should show: "active (running)"
+
+Step 4: Verify MySQL is listening on the correct port:
+
+    sudo netstat -tlnp | grep mysql
+
+Expected output: Shows mysql listening on 0.0.0.0:3306
+
+Step 5: Test MySQL connection:
+
+    sudo mysql -u root -ppassword -e "SELECT @@bind_address; SELECT COUNT(*) as tables FROM information_schema.tables WHERE table_schema='snooker_db';"
+
+Expected output: 
+- bind_address should be 0.0.0.0
+- Count of tables should be 17
+
+================================================================================
+PART 2: START NODE.JS APPLICATION
+================================================================================
+
+Step 1: Open Terminal (Ctrl + `)
+Step 2: Navigate to the project directory:
+
+    cd /workspaces/Snooker
+
+Step 3: Install dependencies (only needed once):
+
+    npm install
+
+Step 4: Start the application:
+
+    npm run dev
+
+Step 5: You should see this message:
+
+    ✓ Server is listening on http://localhost:3000
+
+Step 6: Verify the app can connect to database by checking the logs for:
+
+    Database connection successful
+    or any successful query outputs
+
+================================================================================
+PART 3: VERIFY BOTH ARE RUNNING
+================================================================================
+
+Open a NEW terminal and run:
+
+    curl http://localhost:3000
+
+This should return HTML content (the frontend page).
+
+If you get "Connection refused", the app is not running. Go back to PART 2.
+
+================================================================================
+PART 4: TROUBLESHOOTING
+================================================================================
+
+PROBLEM: MySQL won't start
+SOLUTION:
+    sudo service mysql restart
+    Then wait 5 seconds and verify with:
+    sudo service mysql status
+
+PROBLEM: Port 3000 already in use (EADDRINUSE error)
+SOLUTION:
+    Kill the process:
+    sudo pkill -f "node backend/index.js"
+    
+    Then wait 2 seconds and try npm run dev again
+
+PROBLEM: Port 3306 already in use
+SOLUTION:
+    sudo fuser -k 3306/tcp
+    Then restart MySQL:
+    sudo service mysql restart
+
+PROBLEM: Database connection error in app
+SOLUTION:
+    Check MySQL is running:
+    sudo service mysql status
+    
+    Check credentials in .env file:
+    cat /workspaces/Snooker/.env
+    
+    Verify .env has:
+    - DB_HOST=localhost
+    - DB_USER=root
+    - DB_PASSWORD=password
+    - DB_NAME=snooker_db
+
+PROBLEM: "Cannot find module" errors
+SOLUTION:
+    Reinstall dependencies:
+    cd /workspaces/Snooker
+    rm -rf node_modules
+    npm install
+    npm run dev
+
+PROBLEM: MySQL connection pooling errors
+SOLUTION:
+    Restart MySQL completely:
+    sudo service mysql stop
+    sleep 2
+    sudo service mysql start
+
+================================================================================
+PART 5: QUICK START COMMAND REFERENCE
+================================================================================
+
+Start everything in order:
+
+    # Terminal 1: Start MySQL
+    sudo service mysql start && sudo service mysql status
+
+    # Terminal 2: Start Node.js App
+    cd /workspaces/Snooker && npm run dev
+
+    # Terminal 3 (optional): Verify both are running
+    curl http://localhost:3000
+
+================================================================================
+PART 6: DATABASE CREDENTIALS
+================================================================================
+
+MySQL Credentials:
+    Hostname: localhost
+    Port: 3306
+    Username: root
+    Password: password
+    Database: snooker_db
+
+Application Port:
+    http://localhost:3000
+
+================================================================================
+PART 7: ENVIRONMENT CONFIGURATION (.env)
+================================================================================
+
+Location: /workspaces/Snooker/.env
+
+Required variables for database connection:
+    DB_HOST=localhost
+    DB_USER=root
+    DB_PASSWORD=password
+    DB_NAME=snooker_db
+    PORT=3000
+
+If you modify .env, restart the app:
+    npm run dev
+
+================================================================================
+PART 8: DATABASE VIEWER - WEB UI (RECOMMENDED)
+================================================================================
+
+Instead of MySQL Workbench, use the built-in Database Web UI!
+
+Starting the Database UI:
+    1. Open a new terminal (+ button in terminal panel)
+    2. Run: cd /workspaces/Snooker && node db-ui.js
+    3. Open browser: http://localhost:8080
+
+Features:
+    ✓ View all tables in snooker_db
+    ✓ See live data from masterstudio, players, slots, etc.
+    ✓ Execute custom SQL queries
+    ✓ View database statistics
+    ✓ Auto-refreshes to see new entries
+
+This is the easiest way to monitor database entries!
+
+================================================================================
+PART 9: MYSQL PORT FORWARDING (Alternative - For Remote Access)
+================================================================================
+
+The MySQL port (3306) is set to PUBLIC in Codespaces.
+
+Your public MySQL access URL:
+    orange-giggle-xx4975544g6fvv75-3306.app.github.dev:3306
+
+Use this in MySQL Workbench:
+    Hostname: orange-giggle-xx4975544g6fvv75-3306.app.github.dev
+    Port: 3306
+    Username: root
+    Password: password
+    Default Schema: snooker_db
+
+================================================================================
+PART 10: COMPLETE STARTUP WORKFLOW (With Database Viewer)
+================================================================================
+
+Every morning/session, do this:
+
+1. Open terminal in VS Code (Ctrl + `)
+
+2. Start MySQL:
+   sudo service mysql start
+
+3. Verify MySQL:
+   sudo service mysql status
+
+4. Open new terminal (+ button in terminal panel)
+
+5. Start the app:
+   cd /workspaces/Snooker && npm run dev
+
+6. Open ANOTHER new terminal
+
+7. Start the Database Web UI:
+   cd /workspaces/Snooker && node db-ui.js
+
+8. Access the services:
+   - Application: http://localhost:3000
+   - Database Viewer: http://localhost:8080
+
+9. Keep all terminals open while developing
+
+10. Database Viewer allows you to:
+    - Click any table to view all entries
+    - Write custom SQL queries
+    - See real-time changes to the database
+    - Monitor data being inserted/updated
+
+================================================================================
+PART 11: STOPPING SERVICES
+================================================================================
+
+If you need to stop everything:
+
+To stop the Database Web UI:
+    Press Ctrl+C in the db-ui terminal
+
+To stop the Node.js app:
+    Press Ctrl+C in the app terminal
+
+To stop MySQL:
+    sudo service mysql stop
+
+To verify it stopped:
+    sudo service mysql status
+
+================================================================================
+
+Need help? Check the logs:
+    - App logs: Look in terminal where npm run dev is running
+    - MySQL logs: sudo tail -f /var/log/mysql/error.log
+
+Last updated: December 4, 2025
+
+================================================================================

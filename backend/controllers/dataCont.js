@@ -1,3 +1,28 @@
+// Fetch club info (logo, name) by studio
+const clubInfo = async (req, res) => {
+  try {
+    const studio = req.query.studio;
+    if (!studio) {
+      return res.status(400).json({ success: false, msg: "Missing studio parameter" });
+    }
+    // Adjust column names as per your DB schema
+    const sql = `SELECT Studio, Studio_name, bannerImg FROM masterstudio WHERE Studio = ? LIMIT 1`;
+    const [rows] = await pool.query(sql, [studio]);
+    if (!rows.length) {
+      return res.status(404).json({ success: false, msg: "Studio not found" });
+    }
+    const club = rows[0];
+    res.status(200).json({
+      success: true,
+      studio: club.Studio,
+      clubName: club.Studio_name,
+      logo: club.bannerImg // or use the correct column for logo
+    });
+  } catch (error) {
+    console.log("clubInfo error", error.message);
+    res.status(500).json({ success: false, msg: error.message });
+  }
+};
 const pool = require("../db/db");
 
 const isVAlidTAbleName = (tableName) => {
@@ -16,32 +41,42 @@ const isVAlidTAbleName = (tableName) => {
     "tabledets",
     "topup",
   ];
-  if (validTable.includes(tableName.toLowerCase())) {
-    return true;
+  const lower = (tableName || "").toLowerCase();
+  const isValid = validTable.includes(lower);
+  if (!isValid) {
+    console.log("isVAlidTAbleName check failed for table:", tableName, "(lower:", lower, ")");
   }
-  return false;
+  return isValid;
 };
 
 const frameData = async (req, res) => {
   try {
     // const uid = req.cookies.uid ;
-    const studio = "Studio 111";
+    const studio = req.query.studio;
     const limit = req.query.limit;
 
+      console.log('[frameData] Requested studio:', studio);
     var sql;
 
     if (limit) {
       sql = `SELECT FrameId, Edited, StartTime, OffTime, TableId, tableName, Duration, TotalMoney, Share, fixedCharge, Status, 
                     P1, P2, P3, P4, P5, P6,LP01, LP02, LP03, LP04, LP05, LP06, LP07, LP08, LP09, LP010
-                    FROM frames WHERE studio = "${studio}" ORDER BY FrameId DESC LIMIT ${limit}`;
+                    FROM frames WHERE Studio = "${studio}" ORDER BY FrameId DESC LIMIT ${limit}`;
     } else {
       sql = `SELECT FrameId, Edited, StartTime, OffTime, TableId, tableName, Duration, TotalMoney, Share, fixedCharge, Status, 
-                    P1, P2, P3, P4, P5, P6,LP01, LP02, LP03, LP04, LP05, LP06, LP07, LP08, LP09, LP10 FROM frames WHERE studio = "${studio}"`;
+                    P1, P2, P3, P4, P5, P6,LP01, LP02, LP03, LP04, LP05, LP06, LP07, LP08, LP09, LP10 FROM frames WHERE Studio = "${studio}"`;
     }
 
+      console.log('[frameData] SQL:', sql);
     data = await pool.query(sql);
-
-    res.status(200).json(data);
+    // Always return an array for consistency
+    if (Array.isArray(data)) {
+      res.status(200).json(data);
+    } else if (data) {
+      res.status(200).json([data]);
+    } else {
+      res.status(200).json([]);
+    }
   } catch (error) {
     console.log("error", error.message);
     res.status(400).json({ success: "failed", msg: error.message });
@@ -50,32 +85,49 @@ const frameData = async (req, res) => {
 
 const studioData = async (req, res) => {
   try {
-    // console.log('req.params', req.params)
     const table = req.params.table;
-    const studio = req.params.studio;
+    const studio = req.query.studio;
     const limit = req.query.limit;
-
+    const onlyActive = req.query.active === '1' || req.query.active === 'true';
     if (!isVAlidTAbleName(table)) {
       return res.status(400).send("Invalid Table Name");
     }
-    let data;
+    let sql = `SELECT * FROM ${table}`;
+    const params = [];
+    const where = [];
     if (studio) {
-      if (limit) {
-        sql = `SELECT * FROM ${table} WHERE FIND_IN_SET("${studio}", studio)>0  ORDER BY FrameId DESC LIMIT ${limit}`;
+      // Use correct case for frames table
+      if (table.toLowerCase() === 'frames') {
+        where.push('FIND_IN_SET(?, Studio)>0');
       } else {
-        sql = `SELECT * FROM ${table} WHERE FIND_IN_SET("${studio}", studio)>0 `;
+        where.push('FIND_IN_SET(?, studio)>0');
       }
-      data = await pool.query(sql);
-    } else {
-      sql = `SELECT * FROM ${table} `;
-      data = await pool.query(sql);
+      params.push(studio);
     }
-    // console.log(data)
-
-    res.status(200).json(data);
+    if (onlyActive) {
+      where.push('(Coins > 0 OR coins > 0)');
+    }
+    if (where.length) {
+      sql += ' WHERE ' + where.join(' AND ');
+    }
+    // Use correct ORDER BY for each table
+    if (table.toLowerCase() === 'leaderboard') {
+      sql += ' ORDER BY coins DESC';
+    } else if (table.toLowerCase() === 'frames') {
+      sql += ' ORDER BY FrameId DESC';
+    }
+    if (limit) {
+      sql += ' LIMIT ?';
+      params.push(Number(limit));
+    }
+    console.log('studioData SQL:', sql);
+    console.log('studioData params:', params);
+    const [rows] = await pool.query(sql, params);
+    console.log('studioData result:', rows);
+    res.status(200).json(rows);
   } catch (error) {
-    console.log("error", error.message);
-    res.status(400).json({ success: "failed", msg: error.message });
+    console.log("error", error);
+    res.status(400).json({ success: "failed", msg: error.message, error });
   }
 };
 const leaderboardData = async (req, res) => {
@@ -86,7 +138,7 @@ const leaderboardData = async (req, res) => {
       return res.status(400).send("Invalid Table Name");
     }
     let data;
-    sql = `SELECT * FROM ${table} order by Coins DESC`;
+    sql = `SELECT * FROM ${table} order by coins DESC`;
     data = await pool.query(sql);
     // console.log(sql)
 
@@ -194,5 +246,6 @@ module.exports = {
   frameData,
   framesData,
   leaderboardData,
-  tvData
+  tvData,
+  clubInfo
 };

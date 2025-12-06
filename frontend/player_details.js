@@ -1,51 +1,64 @@
+
 const loaderInstance = new FullScreenLoader();
 let transactionsModal = null;
 let clubModal = null;
+
+// Utility: Player level color map with names
+const LEVEL_COLORS = [
+  { min: 0, max: 20, bg: "#bd372e", text: "#fff", name: "Rookie" }, // Red
+  { min: 21, max: 30, bg: "#FFEB3B", text: "#000", name: "Novice" }, // Yellow
+  { min: 31, max: 40, bg: "#4CAF50", text: "#fff", name: "Challenger" }, // Green
+  { min: 41, max: 50, bg: "#795548", text: "#fff", name: "Competitor" }, // Brown
+  { min: 51, max: 60, bg: "#2196F3", text: "#fff", name: "Expert" }, // Blue
+  { min: 61, max: 70, bg: "#E91E63", text: "#fff", name: "Master" }, // Pink
+  { min: 71, max: 9999, bg: "#000000", text: "#fff", name: "Legend" }, // Black
+];
+
+function getLevelColor(coins) {
+  coins = parseInt(coins || 0);
+  for (const lvl of LEVEL_COLORS) {
+    if (coins >= lvl.min && coins <= lvl.max) return lvl;
+  }
+  return LEVEL_COLORS[0];
+}
+
+// Utility: Show error message
+function showError(msg) {
+  alert(msg || "An error occurred. Please try again.");
+}
 
 function initClient() {
   const urlParams = new URLSearchParams(window.location.search);
   const playerName = urlParams.get("player");
   const studioId = urlParams.get("studio_id");
-
-  // let payBtn = document.getElementById("paybtn");
-  // if (studioId == "Studio 313") {
-  //   payBtn.style.display = "block";
-  // }
-
   if (!playerName || !studioId) {
-    console.error("Player name or studio ID not provided.");
+    showError("Player name or studio ID not provided.");
     return;
   }
-
-  // Initialize modals
-  transactionsModal = new bootstrap.Modal(
-    document.getElementById("transactionsModal"),
-    { backdrop: "static" }
-  );
-
-  clubModal = new bootstrap.Modal(document.getElementById("clubModal"), {
-    backdrop: "static",
+  // Cache DOM
+  const seeTransactionsBtn = document.getElementById("seeTransactions");
+  const myClubBtn = document.getElementById("myClubBtn");
+  const notificationBtn = document.getElementById("notificationBtn");
+  transactionsModal = new bootstrap.Modal(document.getElementById("transactionsModal"), { backdrop: "static" });
+  clubModal = new bootstrap.Modal(document.getElementById("clubModal"), { backdrop: "static" });
+  // Click handlers
+  seeTransactionsBtn?.addEventListener("click", async (e) => {
+    e.preventDefault();
+    await fetchTransactions(playerName, studioId);
+    transactionsModal.show();
   });
-
-  // Set up click handlers
-  document
-    .getElementById("seeTransactions")
-    ?.addEventListener("click", async (e) => {
-      e.preventDefault();
-      await fetchTransactions(playerName, studioId);
-      transactionsModal.show();
-    });
-
-  document.getElementById("myClubBtn")?.addEventListener("click", async (e) => {
+  myClubBtn?.addEventListener("click", async (e) => {
     e.preventDefault();
     try {
       await fetchClubPlayers(studioId);
       clubModal.show();
     } catch (error) {
-      console.error("Failed to load club data:", error);
+      showError("Failed to load club data");
     }
   });
-
+  notificationBtn?.addEventListener("click", () => {
+    alert("No new notifications.");
+  });
   // Load initial data
   fetchStudio(playerName, studioId);
   fetchRankInfo(playerName);
@@ -54,37 +67,37 @@ function initClient() {
 async function fetchClubPlayers(studioId) {
   try {
     loaderInstance.showLoader();
+
     const response = await fetch(
-      `https://app.snookerplus.in/apis/data/leaderboard?studio=${encodeURIComponent(
-        studioId
-      )}`
+      `/apis/data/leaderboard?studio=${encodeURIComponent(studioId)}&active=1&limit=50`
     );
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    let data;
+    try {
+      data = await response.json();
+    } catch (jsonErr) {
+      console.error("Failed to parse club players response as JSON", jsonErr);
+      throw new Error("Invalid server response");
     }
-
-    const data = await response.json();
-
-    // Handle different response formats
-    const players = Array.isArray(data)
-      ? data.length > 0
-        ? data[0]
-        : []
-      : data;
-
-    if (!players) {
+    if (!response.ok) {
+      console.error("Backend error response:", data);
+      throw new Error(`HTTP error! status: ${response.status} - ${data && data.msg ? data.msg : ''}`);
+    }
+    // Expecting data to be an array of players
+    if (!Array.isArray(data)) {
+      console.error("Unexpected club players response:", data);
+      throw new Error("Unexpected server response format");
+    }
+    if (data.length === 0) {
       throw new Error("No player data received");
     }
-
-    displayClubPlayers(players, studioId);
-    return players;
+    displayClubPlayers(data, studioId);
+    return data;
   } catch (error) {
     console.error("Error fetching club players:", error);
     document.getElementById("clubPlayersTable").innerHTML = `
       <tr>
         <td colspan="4" class="text-center text-danger">
-          Failed to load club players. Please try again.
+          Failed to load club players. ${error.message ? error.message : ''}
         </td>
       </tr>`;
     throw error;
@@ -162,11 +175,13 @@ function fetchStudio(playerName, studioId) {
       const payOnline = row.onlinePay;
       if (payOnline) {
         const playerInfo = document.getElementById("playerInfo");
-        const payButton = document.createElement("button");
-        payButton.className = "paybtn";
-        payButton.innerText = "Pay Balance";
-        payButton.onclick = payBalance;
-        playerInfo.appendChild(payButton);
+        if (playerInfo) {
+          const payButton = document.createElement("button");
+          payButton.className = "paybtn";
+          payButton.innerText = "Pay Balance";
+          payButton.onclick = payBalance;
+          playerInfo.appendChild(payButton);
+        }
       }
 
       displayPlayerInfo(row);
@@ -226,7 +241,7 @@ async function payBalance() {
 }
 
 function fetchFrames(playerName, studio) {
-  let url = `apis/data/frames/${studio}`;
+  let url = `apis/data/frames/frames?studio=${encodeURIComponent(studio)}`;
   loaderInstance.showLoader();
   fetch(url)
     .then((response) => {
@@ -236,11 +251,11 @@ function fetchFrames(playerName, studio) {
       return response.json();
     })
     .then((data) => {
-      if (!data || !data[0]) {
+      if (!data || !Array.isArray(data) || data.length === 0) {
         throw new Error("No frame data received");
       }
 
-      const frames = data[0];
+      const frames = data;
       loaderInstance.hideLoader();
       const playerFrame = frames.filter(
         (frame) =>
@@ -262,19 +277,20 @@ function fetchFrames(playerName, studio) {
     });
 }
 
-function fetchRankInfo(playerName) {
-  let url = `apis/playerData/leaderboard/${playerName}`;
-  fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      let row = data[0];
-      if (row) {
-        displayRankInfo(row);
-      } else {
-        console.log("Rank info not found.");
-      }
-    })
-    .catch((error) => console.error("Error fetching rank data:", error));
+async function fetchRankInfo(playerName) {
+  try {
+    let url = `apis/playerData/leaderboard/${playerName}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    let row = data[0];
+    if (row) {
+      displayRankInfo(row);
+    } else {
+      showError("Rank info not found.");
+    }
+  } catch (error) {
+    showError("Error fetching rank data");
+  }
 }
 
 function displayPlayerInfo(playerInfo) {
@@ -308,21 +324,35 @@ function truncateName(name) {
   return name.length > 10 ? name.substring(0, 10) + "..." : name;
 }
 
-function displayFramesInfo(framesData, playerName) {
+
+// Pagination state
+let allPlayerFrames = [];
+let framesPage = 0;
+const FRAMES_PER_PAGE = 10;
+
+function displayFramesInfoPaginated(playerName, reset = false) {
   const framesContainer = document.getElementById("framesInfo");
+  const loadMoreBtn = document.getElementById("loadMoreFramesBtn");
   if (!framesContainer) return;
 
-  framesContainer.innerHTML = "";
+  if (reset) {
+    framesContainer.innerHTML = "";
+    framesPage = 0;
+  }
 
-  if (!framesData || !Array.isArray(framesData)) {
-    framesContainer.innerHTML =
-      '<div class="text-center">No frame data available</div>';
+  // Calculate which frames to show
+  const startIdx = framesPage * FRAMES_PER_PAGE;
+  const endIdx = startIdx + FRAMES_PER_PAGE;
+  const framesToShow = allPlayerFrames.slice(startIdx, endIdx);
+
+  if (framesToShow.length === 0 && framesPage === 0) {
+    framesContainer.innerHTML = '<div class="text-center">No frame data available</div>';
+    loadMoreBtn.style.display = "none";
     return;
   }
 
-  const allFrames = framesData.reverse();
-
-  const framesWithShare = allFrames.filter((frame) => {
+  // Find latest 10 frames with share for highlighting
+  const framesWithShare = allPlayerFrames.filter((frame) => {
     if (!frame) return false;
     for (let i = 1; i <= 10; i++) {
       const lpKey = i < 10 ? `LP0${i}` : `LP${i}`;
@@ -332,12 +362,12 @@ function displayFramesInfo(framesData, playerName) {
     }
     return false;
   });
-
   const latestShareFrames = framesWithShare.slice(0, 10);
 
-  allFrames.forEach((frame) => {
+  framesToShow.forEach((frame) => {
     if (!frame) return;
-
+    // ... (copy the original frame rendering logic here, unchanged) ...
+    // --- BEGIN FRAME RENDER LOGIC ---
     const frameElement = document.createElement("div");
     frameElement.className = "frame-card";
 
@@ -464,6 +494,44 @@ function displayFramesInfo(framesData, playerName) {
         isWinner ? "winner" : isTie ? "tie-grey" : "loser"
       );
 
+      // GG logic
+      const gg1 = frame.gg1;
+      const gg2 = frame.gg2;
+      let ggState = "grey"; // default
+      let canSendGG = false;
+      let ggTooltip = "Send GG to opponent";
+      // Determine if current player is P1 or P2
+      let isP1 = frame.P1 === playerName;
+      let isP2 = frame.P2 === playerName;
+      let opponent = isP1 ? frame.P2 : frame.P1;
+      // Only show GG for 1v1
+      if (isP1 || isP2) {
+        if ((isP1 && gg1 === playerName) || (isP2 && gg2 === playerName)) {
+          // User already sent GG
+          if ((isP1 && gg2 === opponent) || (isP2 && gg1 === opponent)) {
+            ggState = "gold"; // both sent
+            ggTooltip = "Both sent GG!";
+          } else {
+            ggState = "green"; // user sent
+            ggTooltip = "You sent GG";
+          }
+        } else if ((isP1 && gg2 === opponent) || (isP2 && gg1 === opponent)) {
+          ggState = "grey"; // opponent sent, user not sent
+          canSendGG = true;
+          ggTooltip = "Opponent sent GG. Send yours!";
+        } else {
+          ggState = "grey";
+          canSendGG = true;
+        }
+      }
+
+      // GG icon with thumbs up emoji and color logic
+      const ggIcons = {
+        grey: `<span class="gg-icon" style="font-size: 1.5rem; background: #aaa2; border-radius: 50%; padding: 2px 6px;">👍</span>` ,
+        green: `<span class="gg-icon" style="font-size: 1.5rem; background: #4caf5022; border-radius: 50%; padding: 2px 6px;">👍</span>` ,
+        gold: `<span class="gg-icon" style="font-size: 1.5rem; background: #FFD70022; border-radius: 50%; padding: 2px 6px;">👍</span>`
+      };
+
       frameElement.innerHTML = `
               <div class="line1">
                   <span>📅 ${dateStr} 🕒 ${timeStr} ⏱️ ${durationStr}</span>
@@ -475,6 +543,9 @@ function displayFramesInfo(framesData, playerName) {
           ? frame.LooserStake || 0
           : Math.floor((frame.LooserStake || 0) / 2)
       }</span>
+                  ${(isP1 || isP2) ? `<span class="gg-btn-wrapper" title="${ggTooltip}">
+                    <button class="gg-btn" data-frame-id="${frame.FrameID}" data-from-player="${playerName}" data-to-player="${opponent}" ${!canSendGG ? "disabled" : ""} style="background: none; border: none; cursor: pointer; padding: 0;">${ggIcons[ggState]}</button>
+                  </span>` : ""}
               </div>
               <div class="line3">
                   ${
@@ -484,48 +555,120 @@ function displayFramesInfo(framesData, playerName) {
                   }
               </div>
           `;
+
+      // Add click handler for GG button
+      if ((isP1 || isP2) && canSendGG) {
+        const ggBtn = frameElement.querySelector(".gg-btn");
+        if (ggBtn) {
+          ggBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            // Placeholder: call sendGG API here
+            alert(`Send GG: frame ${frame.FrameID}, from ${playerName} to ${opponent}`);
+          });
+        }
+      }
     }
 
     framesContainer.appendChild(frameElement);
+    // --- END FRAME RENDER LOGIC ---
   });
+
+  // Show/hide Load More button
+  if (endIdx < allPlayerFrames.length) {
+    loadMoreBtn.style.display = "block";
+  } else {
+    loadMoreBtn.style.display = "none";
+  }
 }
+
+// Patch fetchFrames to use pagination
+function fetchFrames(playerName, studio) {
+  let url = `apis/data/frames/frames?studio=${encodeURIComponent(studio)}`;
+  loaderInstance.showLoader();
+  fetch(url)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      if (!data || !Array.isArray(data) || data.length === 0) {
+        throw new Error("No frame data received");
+      }
+
+      // Sort and filter frames for this player
+      const frames = data;
+      loaderInstance.hideLoader();
+      const playerFrame = frames.filter(
+        (frame) =>
+          frame &&
+          [frame.P1, frame.P2, frame.P3, frame.P4, frame.P5, frame.P6].some(
+            (player) => player && player === playerName
+          )
+      ).reverse();
+
+      allPlayerFrames = playerFrame;
+      displayFramesInfoPaginated(playerName, true);
+    })
+    .catch((error) => {
+      console.error("Error fetching frame data:", error);
+      loaderInstance.hideLoader();
+    });
+}
+
+// Attach Load More button handler
+document.addEventListener("DOMContentLoaded", function() {
+  const loadMoreBtn = document.getElementById("loadMoreFramesBtn");
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener("click", function() {
+      framesPage++;
+      const urlParams = new URLSearchParams(window.location.search);
+      const playerName = urlParams.get("player");
+      displayFramesInfoPaginated(playerName);
+    });
+  }
+});
 
 function displayRankInfo(rankInfo) {
   if (!rankInfo) return;
-
   const urlParams = new URLSearchParams(window.location.search);
   const rank = urlParams.get("rank") || "-";
-
   document.getElementById("playerRank").innerText = `Rank: ${rank}`;
-  document.getElementById("winRate").innerText = `Win Rate: ${
-    rankInfo.win_rate || 0
-  }%`;
-
-  let playercardColor = "";
+  const winRate = rankInfo.win_rate ? Math.round(Number(rankInfo.win_rate)) : 0;
+  document.getElementById("winRate").innerText = `Win Rate: ${winRate}%`;
+  // Set color by level
   const coins = parseInt(rankInfo.Coins || 0);
-  let textColor = "white";
-
-  if (coins < 21) {
-    playercardColor = "#bd372e";
-  } else if (coins >= 21 && coins <= 30) {
-    playercardColor = "#FFEB3B";
-    textColor = "#000000";
-  } else if (coins >= 31 && coins <= 40) {
-    playercardColor = "#4CAF50";
-  } else if (coins >= 41 && coins <= 50) {
-    playercardColor = "#795548";
-  } else if (coins >= 51 && coins <= 60) {
-    playercardColor = "#2196F3";
-  } else if (coins >= 61 && coins <= 70) {
-    playercardColor = "#E91E63";
-  } else if (coins > 70) {
-    playercardColor = "#000000";
-  }
-
+  const { bg: playercardColor, text: textColor, min, max, name: levelName } = getLevelColor(coins);
   const playerCard = document.getElementById("playerCard");
   if (playerCard) {
     playerCard.style.backgroundColor = playercardColor;
     playerCard.style.color = textColor;
+  }
+  // Show level name above progress bar
+  let levelNameElem = document.getElementById("playerLevelName");
+  if (levelNameElem) {
+    levelNameElem.textContent = `Level: ${levelName}`;
+  }
+  // Set GG received count
+  const ggCount = rankInfo.gg_count || 0;
+  const ggCountElem = document.getElementById("ggCount");
+  if (ggCountElem) {
+    ggCountElem.innerText = ggCount;
+  }
+  // Update progress bar
+  const progressBar = document.getElementById("playerProgressBar");
+  if (progressBar) {
+    // Calculate progress within current level range
+    let progress = 0;
+    if (typeof min !== 'undefined' && typeof max !== 'undefined' && max > min) {
+      progress = ((coins - min) / (max - min)) * 100;
+      progress = Math.max(0, Math.min(progress, 100));
+    }
+    progressBar.style.width = progress + "%";
+    progressBar.setAttribute("aria-valuenow", progress);
+    progressBar.setAttribute("aria-valuemin", 0);
+    progressBar.setAttribute("aria-valuemax", 100);
   }
 }
 
@@ -580,21 +723,12 @@ function formatTransactionDate(dateString) {
 async function fetchTransactions(playerName, studioId) {
   try {
     loaderInstance.showLoader();
-    const response = await fetch(`https://app.snookerplus.in/apis/data/topup`);
-
+    // Use new backend endpoint for fast filtered fetch
+    const response = await fetch(`/player/topup?player=${encodeURIComponent(playerName)}&studio=${encodeURIComponent(studioId)}&limit=5`);
     if (!response.ok) {
       throw new Error(`API request failed with status ${response.status}`);
     }
-
-    const transactions = await response.json();
-
-    const transactionData = transactions[0] || [];
-
-    const playerTransactions = transactionData
-      .filter((t) => t.UserName === playerName && t.studio === studioId)
-      .sort((a, b) => new Date(b.RecordDate || 0) - new Date(a.RecordDate || 0))
-      .slice(0, 5);
-
+    const playerTransactions = await response.json();
     displayTransactions(playerTransactions);
   } catch (error) {
     console.error("Error fetching transactions:", error);

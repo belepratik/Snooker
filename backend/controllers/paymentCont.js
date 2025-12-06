@@ -343,8 +343,32 @@ const adjustment = async (req, res) => {
   }
 };
 
+// GET: Fetch topup transactions filtered by player and studio
+const getTopups = async (req, res) => {
+  try {
+    const { player, studio, limit = 10 } = req.query;
+    let sql = "SELECT * FROM topup WHERE 1=1";
+    const params = [];
+    if (player) {
+      sql += " AND UserName = ?";
+      params.push(player);
+    }
+    if (studio) {
+      sql += " AND studio = ?";
+      params.push(studio);
+    }
+    sql += " ORDER BY RecordDate DESC LIMIT ?";
+    params.push(Number(limit));
+    const [rows] = await pool.query(sql, params);
+    res.status(200).json(rows);
+  } catch (error) {
+    res.status(500).json({ success: false, msg: error.message });
+  }
+};
+
 module.exports = {
   topup,
+  getTopups,
   purchase,
   adjustment,
 };

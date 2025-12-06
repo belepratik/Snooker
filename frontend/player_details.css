@@ -1,3 +1,136 @@
+/* Player Level Name Styling */
+#playerLevelName {
+  color: #FFD700;
+  font-size: 1.05rem;
+  font-weight: 500;
+  margin-top: -2px;
+  margin-bottom: 2px;
+  opacity: 0.85;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 2px #0008;
+}
+@media (max-width: 600px) {
+  #playerLevelName {
+    font-size: 0.98rem;
+    margin-bottom: 1px;
+  }
+}
+/* Player progress bar styles */
+.player-progress-bar-row {
+  margin: 8px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.player-progress-label {
+  font-size: 0.95em;
+  color: #b2dfdb;
+  margin-bottom: 2px;
+}
+.player-progress-bar-bg {
+  width: 100%;
+  height: 12px;
+  background: #23272f;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+.player-progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #01ab7a 60%, #FFD700 100%);
+  border-radius: 8px 0 0 8px;
+  transition: width 0.5s cubic-bezier(.4,2,.6,1);
+}
+@media (max-width: 600px) {
+  .player-progress-bar-row {
+    margin: 6px 0 0 0;
+  }
+  .player-progress-bar-bg {
+    height: 10px;
+  }
+}
+/* Modern, mobile-friendly player card redesign */
+.player-card-modern {
+  max-width: 540px;
+  background: linear-gradient(135deg, #23272f 80%, #01ab7a22 100%);
+  border-radius: 18px;
+  margin: 18px auto 18px auto;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.13);
+  padding: 0 0 0 0;
+}
+.player-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px 16px 14px 16px;
+}
+.player-card-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.player-card-header {
+  flex-direction: row;
+  align-items: flex-start;
+  margin-bottom: 2px;
+}
+.player-card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: #fff;
+  flex: 1;
+  word-break: break-word;
+}
+.gg-received-box {
+  display: flex;
+  align-items: center;
+  background: #FFD70022;
+  border-radius: 50px;
+  padding: 4px 12px 4px 8px;
+  font-size: 1.1rem;
+  margin-left: 8px;
+}
+.gg-icon {
+  font-size: 1.7rem;
+  margin-right: 6px;
+}
+.player-card-meta {
+  font-size: 1.08rem;
+  color: #b2dfdb;
+  gap: 18px;
+}
+.player-card-balance {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #fff;
+}
+.player-card-nfc {
+  font-size: 1rem;
+  color: #b2dfdb;
+  gap: 8px;
+}
+@media (max-width: 600px) {
+  .player-card-modern {
+    padding: 0;
+    border-radius: 12px;
+  }
+  .player-card-content {
+    padding: 12px 6px 10px 6px;
+    gap: 7px;
+  }
+  .player-card-title {
+    font-size: 1.15rem;
+  }
+  .player-card-meta, .player-card-balance, .player-card-nfc {
+    font-size: 0.98rem;
+  }
+  .gg-received-box {
+    font-size: 1rem;
+    padding: 3px 8px 3px 6px;
+  }
+}
 /* ===== Base Styles ===== */
 body {
   font-family: Arial, sans-serif;

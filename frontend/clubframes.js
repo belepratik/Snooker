@@ -13,17 +13,13 @@ async function fetchData(sheetName, all) {
     url = `apis/data/frames/${sheetName}`;
     let response = await fetch(url);
     data = await response.json();
-    data = data[0];
     data = data.reverse();
   } else {
     url = `apis/data/frames/${sheetName}?limit=${limit}`;
     let response = await fetch(url);
     data = await response.json();
-    data = data[0];
   }
-
-  // console.log(data[0]);
-  return data; // Exclude header row
+  return data;
 }
 
 let getCookie = (name) => {

@@ -1,0 +1,30 @@
+{
+  "name": "Snooker App",
+  "image": "mcr.microsoft.com/devcontainers/universal:latest",
+  "features": {
+    "ghcr.io/devcontainers/features/mysql:1": {
+      "version": "8.0"
+    }
+  },
+  "forwardPorts": [3000, 3306],
+  "portsAttributes": {
+    "3000": {
+      "label": "Application",
+      "onAutoForward": "notify",
+      "visibility": "public"
+    },
+    "3306": {
+      "label": "MySQL",
+      "onAutoForward": "notify",
+      "visibility": "public"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "mysql.mysql-shell-for-vs-code",
+        "ms-vscode.remote-explorer"
+      ]
+    }
+  }
+}
